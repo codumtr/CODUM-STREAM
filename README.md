@@ -67,7 +67,9 @@ Unlike conventional machine translation tools that produce robotic voices and li
                                 └─────────────────────────┘
 ```
 
-**End-to-End Latency:** `~650ms – 1.1s` (Fastest in class).
+**End-to-End Latency:** `~650ms – 1.1s` (Optimized Pipeline Target).
+
+> 💡 **Benchmark & Ölçüm Notu:** Bu gecikme aralığı; optimize edilmiş VAD penceresi, Groq Whisper Large v3 (~120ms chunking), Groq LLaMA 3.3 70B (~180ms TTFT) ve ElevenLabs Turbo v2.5 WebSocket streaming (~350ms ilk ses paketi) ile yüksek hızlı fiber bağlantı altında laboratuvar testlerinde ölçülen medyan süredir. Gerçek kullanımda gecikme, internet pinginize ve seçilen yapay zekâ sağlayıcısına bağlı olarak değişkenlik gösterebilir.
 
 ---
 
