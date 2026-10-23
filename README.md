@@ -100,7 +100,7 @@ CODUM.TR STREAM, Türk yayıncıların yayınlarını dünyaya açabilmesi için
 ### Yöntem 1: Bağımsız Masaüstü Programı (Önerilen - Python Gerekmez!)
 1. Sağ taraftaki **[Releases (v1.0.0-PRO)](https://github.com/codumtr/CODUM-STREAM/releases/tag/v1.0.0-PRO)** bölümünden `CODUM_StreamDub_v1.0.0_Windows.zip` dosyasını indirin.
 2. Arşivi bir klasöre çıkartın (**"Tümünü Ayıkla" / "Extract All"** deyin).
-3. Klasör içindeki **`CODUM_BASLAT.bat`** veya **`CODUM_StreamDub.exe`** dosyasına çift tıklayın.
+3. Klasör içindeki **`CODUM_StreamDub.exe`** dosyasına çift tıklayın.
 4. Discord / OBS tarzında bağımsız, karanlık temalı **Masaüstü Yönetim Penceresi** anında açılacaktır!
 5. Klasördeki **`KULLANIM_KILAVUZU.txt`** dosyasında OBS, mikrofon ve ses klonlama ayarları adım adım anlatılmaktadır.
 
@@ -114,8 +114,7 @@ cd CODUM-STREAM
 pip install -r requirements.txt
 
 # 3. Sunucuyu başlatın
-baslat.bat
-# veya: python -m uvicorn server.app:app --host 127.0.0.1 --port 8765
+python run_app.py
 ```
 
 ---

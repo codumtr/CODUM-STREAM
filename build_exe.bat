@@ -53,11 +53,9 @@ echo [2/3] CODUM_StreamDub.exe derleniyor (Native Desktop App)...
     run_app.py
 
 echo.
-echo [3/3] Ek belgeler ve yonetim dosyalari paket klasorune kopyalaniyor...
-copy /Y "CODUM_BASLAT.bat" "dist\CODUM_StreamDub\" > nul
+echo [3/3] Ek belgeler paket klasorune kopyalaniyor...
 copy /Y "KULLANIM_KILAVUZU.txt" "dist\CODUM_StreamDub\" > nul
 copy /Y "LICENSE.md" "dist\CODUM_StreamDub\" > nul
-copy /Y ".env.example" "dist\CODUM_StreamDub\" > nul
 
 echo.
 echo ========================================================

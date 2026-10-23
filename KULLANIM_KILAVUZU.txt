@@ -15,8 +15,7 @@ başlayabilmesi için hazırlanmıştır.
 --------------------------------------------------------------------------------
 1) İndirdiğiniz zip arşivini klasöre çıkartın (Zip içinden doğrudan çalıştırmayın,
    mutlaka "Tümünü Ayıkla" veya "Extract All" deyin).
-2) Klasörün içindeki "CODUM_BASLAT.bat" dosyasına veya doğrudan "CODUM_StreamDub.exe"
-   dosyasına çift tıklayın.
+2) Klasörün içindeki "CODUM_StreamDub.exe" programına çift tıklayın.
 3) Karşınıza Discord / OBS gibi bağımsız, karanlık temalı modern stüdyo
    yönetim penceresi gelecektir.
    * Tarayıcıda kullanmak isterseniz herhangi bir tarayıcıdan şu adrese girebilirsiniz:
