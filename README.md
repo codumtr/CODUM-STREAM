@@ -1,4 +1,6 @@
-# 🎙️ CODUM.TR STREAM STUDIO
+# ⚡ CODUM.TR STREAM PRO STUDIO
+### 🎙️ Gerçek Zamanlı AI Canlı Dublaj & Voice DNA Ses Klonlama Masası (~650ms)
+### 🌍 Real-Time AI Live Dubbing & Voice DNA Cloning Studio for Kick, Twitch & OBS Streamers
 
 <div align="center">
 
@@ -6,16 +8,17 @@
 
 <br><br>
 
-[![License: Proprietary Freeware](https://img.shields.io/badge/License-Proprietary_Freeware-blue.svg)](LICENSE.md)
-[![Platform: Windows](https://img.shields.io/badge/Platform-Windows_10%2F11-0078D6.svg?logo=windows)](https://microsoft.com)
-[![OBS Studio](https://img.shields.io/badge/OBS_Studio-Compatible_v28+-302E31.svg?logo=obs-studio)](https://obsproject.com)
-[![Kick.com](https://img.shields.io/badge/Kick.com-Native_Extension-53FC18.svg?logo=kick&logoColor=black)](https://kick.com)
-[![Release](https://img.shields.io/badge/Release-v1.0.0--PRO-brightgreen.svg)](https://github.com/codumtr/CODUM-STREAM/releases)
-[![Download EXE](https://img.shields.io/badge/Download-Standalone_.EXE_(33MB)-orange.svg)](https://github.com/codumtr/CODUM-STREAM/releases/download/v1.0.0-PRO/CODUM_StreamDub_v1.0.0_Windows.zip)
+[![Release](https://img.shields.io/badge/Release-v1.0.0--PRO_Official-53FC18.svg?style=for-the-badge&logo=github)](https://github.com/codumtr/CODUM-STREAM/releases/tag/v1.0.0-PRO)
+[![Download EXE](https://img.shields.io/badge/HEMEN_İNDİR-Windows_.EXE_(39MB)-blue.svg?style=for-the-badge&logo=windows)](https://github.com/codumtr/CODUM-STREAM/releases/download/v1.0.0-PRO/CODUM_StreamDub_v1.0.0_Windows.zip)
+[![OBS Studio Native](https://img.shields.io/badge/OBS_Studio-Audio_%26_Overlay_Native-purple.svg?style=for-the-badge&logo=obs-studio)](https://obsproject.com)
+[![Kick.com Tested](https://img.shields.io/badge/Kick.com-Streamer_Verified-00E701.svg?style=for-the-badge&logo=kick&logoColor=black)](https://kick.com)
 
-**Real-Time AI Live Dubbing, Cultural Slang Intelligence & Voice DNA Cloning Studio for Kick & OBS Streamers.**
+<br>
 
-[English](#-english-overview) • [Türkçe Dokümantasyon](#-türkçe-özet--kurulum) • [Hızlı Başlangıç](#-hızlı-kurulum-quickstart) • [OBS Entegrasyonu](#-obs-studio-sesli-entegrasyon) • [İndir (.exe)](https://github.com/codumtr/CODUM-STREAM/releases)
+### 🇹🇷 Türkçe Konuş ➔ 🇬🇧 Kendi Ses Tonunla İngilizce Canlı Dublaj Yay!
+**Sıfır Kurulum Karmaşası • 5 Adımlı İnteraktif Kurulum Sihirbazı • Kalıcı Ayar Hafızası • Bağımsız Masaüstü Programı**
+
+[📥 Windows Programını İndir (.zip)](https://github.com/codumtr/CODUM-STREAM/releases/download/v1.0.0-PRO/CODUM_StreamDub_v1.0.0_Windows.zip) • [📖 Türkçe Kurulum Kılavuzu](#-türkçe-özet--kurulum) • [📺 OBS Entegrasyonu](#-obs-studio-sesli-entegrasyon) • [⚡ English Guide](#-english-overview)
 
 </div>
 
