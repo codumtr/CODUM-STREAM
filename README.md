@@ -2,16 +2,20 @@
 
 <div align="center">
 
+<img src="assets/banner.jpg" alt="CODUM.TR STREAM Banner" width="100%">
+
+<br><br>
+
 [![License: Proprietary Freeware](https://img.shields.io/badge/License-Proprietary_Freeware-blue.svg)](LICENSE.md)
 [![Platform: Windows](https://img.shields.io/badge/Platform-Windows_10%2F11-0078D6.svg?logo=windows)](https://microsoft.com)
 [![OBS Studio](https://img.shields.io/badge/OBS_Studio-Compatible_v28+-302E31.svg?logo=obs-studio)](https://obsproject.com)
 [![Kick.com](https://img.shields.io/badge/Kick.com-Native_Extension-53FC18.svg?logo=kick&logoColor=black)](https://kick.com)
-[![Release](https://img.shields.io/badge/Release-v1.0.0--PRO-brightgreen.svg)](https://github.com)
-[![Zero Install](https://img.shields.io/badge/Zero_Install-Standalone_.EXE-orange.svg)](dist/CODUM_StreamDub/)
+[![Release](https://img.shields.io/badge/Release-v1.0.0--PRO-brightgreen.svg)](https://github.com/codumtr/CODUM-STREAM/releases)
+[![Download EXE](https://img.shields.io/badge/Download-Standalone_.EXE_(33MB)-orange.svg)](https://github.com/codumtr/CODUM-STREAM/releases/download/v1.0.0-PRO/CODUM_StreamDub_v1.0.0_Windows.zip)
 
 **Real-Time AI Live Dubbing, Cultural Slang Intelligence & Voice DNA Cloning Studio for Kick & OBS Streamers.**
 
-[English](#-english-overview) • [Türkçe Dokümantasyon](#-türkçe-özet--kurulum) • [Hızlı Başlangıç](#-hızlı-kurulum-quickstart) • [OBS Entegrasyonu](#-obs-studio-sesli-entegrasyon)
+[English](#-english-overview) • [Türkçe Dokümantasyon](#-türkçe-özet--kurulum) • [Hızlı Başlangıç](#-hızlı-kurulum-quickstart) • [OBS Entegrasyonu](#-obs-studio-sesli-entegrasyon) • [İndir (.exe)](https://github.com/codumtr/CODUM-STREAM/releases)
 
 </div>
 
