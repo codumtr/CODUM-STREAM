@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CODUM.TR STREAM OBS Audio & Subtitle Source</title>
+  <link rel="stylesheet" href="/static/overlay/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- OBS Ses Kilidi Açma Uyarısı (Gerektiğinde) -->
+  <div id="unmute-banner" class="unmute-banner hidden">
+    🔊 Sesi Başlatmak İçin Tıklayın (OBS için otomatik açıktır)
+  </div>
+
+  <div id="overlay-container">
+    <div id="subtitle-card" class="card hidden">
+      <div class="header">
+        <div class="streamer-badge">
+          <span class="live-dot"></span>
+          <span id="streamer-name">STREAMER</span>
+          <span id="audio-active-badge" class="audio-badge">🔊 OBS AUDIO</span>
+        </div>
+        <div id="lang-tag" class="lang-tag">EN DUB</div>
+      </div>
+      <div id="translated-text" class="translated-text">...</div>
+      <div id="original-text" class="original-text">...</div>
+    </div>
+  </div>
+
+  <script src="/static/overlay/overlay.js"></script>
+</body>
+</html>

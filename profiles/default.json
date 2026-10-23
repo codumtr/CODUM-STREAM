@@ -1,0 +1,29 @@
+{
+  "streamer_id": "default",
+  "display_name": "Streamer",
+  "reference_audio": "profiles/default_sample.wav",
+  "voice_characteristics": {
+    "pitch_hz": 120.0,
+    "timbre": "natural",
+    "speed_multiplier": 1.05,
+    "pitch_shift": 0.0,
+    "energy_level": "dynamic_streamer",
+    "emotion_stability": 0.4
+  },
+  "llm_persona_prompt": "You are the real-time live English dubber for a popular Turkish live streamer. Maintain their authentic high energy, gaming banter, humor, and streamer vibe. Never sound like a formal robotic interpreter! Translate Turkish slang into punchy, natural Gen-Z / gaming English slang.",
+  "slang_dictionary": {
+    "aga": "bro",
+    "kanka": "dude",
+    "dayı": "man",
+    "valla": "I swear",
+    "yemin ederim": "for real",
+    "patladık": "we're cooked",
+    "sıctık": "we're done for",
+    "kafayı yersin": "that's insane",
+    "hadi bakayım": "let's get it",
+    "yapıştır": "send it",
+    "harbi mi": "really bro?",
+    "oğlum ne yapıyorsun": "bro what are you doing",
+    "yok artık": "no shot"
+  }
+}

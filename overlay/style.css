@@ -1,0 +1,130 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: transparent;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 45px;
+}
+
+.unmute-banner {
+  position: fixed;
+  top: 15px;
+  background: rgba(83, 252, 24, 0.9);
+  color: #000;
+  font-weight: 800;
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.unmute-banner.hidden {
+  display: none;
+}
+
+#overlay-container {
+  width: 90%;
+  max-width: 950px;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  background: rgba(10, 15, 29, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-left: 4px solid #53FC18; /* Kick Green */
+  border-radius: 14px;
+  padding: 16px 24px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6);
+  color: #fff;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.streamer-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #e2e8f0;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #53FC18;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #53FC18;
+}
+
+.audio-badge {
+  font-size: 11px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+
+.audio-badge.playing {
+  color: #53FC18;
+  background: rgba(83, 252, 24, 0.15);
+  border: 1px solid rgba(83, 252, 24, 0.3);
+}
+
+.lang-tag {
+  background: rgba(83, 252, 24, 0.15);
+  color: #53FC18;
+  border: 1px solid rgba(83, 252, 24, 0.4);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.8px;
+}
+
+.translated-text {
+  font-size: 23px;
+  font-weight: 800;
+  line-height: 1.35;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+  margin-bottom: 4px;
+}
+
+.original-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: #94a3b8;
+}

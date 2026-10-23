@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# Derleme ve Dağıtım Dosyaları (Build & Dist - GitHub Releases ile paylaşılır)
+build/
+dist/
+*.spec
+
+# Ortam Değişkenleri & Özel API Anahtarları (ASLA PAYLAŞILMAZ)
+.env
+.env.local
+
+# Ses Dosyaları & Geçici Kayıtlar
+*.wav
+*.mp3
+*.ogg
+*.pcm
+!profiles/default_sample.wav
+
+# Günlük ve Geçici Dosyalar
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

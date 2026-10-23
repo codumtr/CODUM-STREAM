@@ -1,0 +1,15 @@
+fastapi>=0.110.0
+uvicorn[standard]>=0.28.0
+websockets>=12.0
+python-dotenv>=1.0.0
+pydantic>=2.6.0
+numpy>=1.26.0
+requests>=2.31.0
+aiohttp>=3.9.0
+sounddevice>=0.4.6
+
+# İsteğe bağlı / İleri Seviye Yerel Modeller:
+# torch>=2.2.0
+# torchaudio>=2.2.0
+# faster-whisper>=1.0.0
+# TTS>=0.22.0 # (Coqui XTTS-v2 için)

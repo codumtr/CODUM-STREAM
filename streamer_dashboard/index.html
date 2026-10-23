@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CODUM.TR STREAM - Canlı Dublaj & Kontrol Merkezi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --card-border: #1e293b;
+      --card-border-hover: #334155;
+      --kick-green: #53FC18;
+      --kick-glow: rgba(83, 252, 24, 0.3);
+      --red: #ef4444;
+      --blue: #3b82f6;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ÜST BAŞLIK (HEADER) - Düzenli & Minimalist */
+    header {
+      background: #0f172a;
+      border-bottom: 1px solid var(--card-border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #fff;
+    }
+    .logo span { color: var(--kick-green); }
+    .badge-pro {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(83, 252, 24, 0.12);
+      color: var(--kick-green);
+      border: 1px solid rgba(83, 252, 24, 0.3);
+      letter-spacing: 0.5px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Segmented Switch (Prova vs Canlı) */
+    .segmented-switch {
+      display: flex;
+      background: #0b0f19;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 3px;
+    }
+    .seg-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .seg-btn.active.rehearsal {
+      background: #2563eb;
+      color: #fff;
+    }
+    .seg-btn.active.live {
+      background: #dc2626;
+      color: #fff;
+      animation: pulse-red 2s infinite;
+    }
+    @keyframes pulse-red {
+      0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.5); }
+      70% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+    }
+
+    /* Butonlar */
+    .header-btn {
+      background: #0b0f19;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .header-btn:hover {
+      border-color: var(--card-border-hover);
+      color: #fff;
+    }
+    .header-btn.active {
+      color: var(--kick-green);
+      border-color: rgba(83, 252, 24, 0.4);
+      background: rgba(83, 252, 24, 0.08);
+    }
+    .panic-btn {
+      background: rgba(239, 68, 68, 0.12);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      font-size: 12px;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .panic-btn:hover {
+      background: #dc2626;
+      color: #fff;
+    }
+    .panic-btn.muted {
+      background: #dc2626;
+      color: #fff;
+      border-color: #ef4444;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+    }
+
+    /* Durum Hapı */
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-muted);
+      background: #0b0f19;
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #64748b;
+    }
+    .status-dot.live {
+      background: var(--kick-green);
+      box-shadow: 0 0 8px var(--kick-green);
+    }
+    .status-dot.rehearsal {
+      background: #3b82f6;
+      box-shadow: 0 0 8px #3b82f6;
+    }
+
+    /* SEKME MENÜSÜ (NAV TABS) - Sade 6 Bölüm */
+    .nav-tabs {
+      background: #0d131f;
+      border-bottom: 1px solid var(--card-border);
+      padding: 0 24px;
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 13px 16px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: #fff; }
+    .tab-btn.active {
+      color: var(--kick-green);
+      border-bottom-color: var(--kick-green);
+      font-weight: 700;
+    }
+
+    /* ANA İÇERİK */
+    main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 20px auto;
+      width: 95%;
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 850px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .card h2 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .form-group { margin-bottom: 15px; }
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    select, input[type="text"], input[type="password"], input[type="number"], textarea {
+      width: 100%;
+      background: #0b0f19;
+      border: 1px solid var(--card-border);
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    select:focus, input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
+      border-color: var(--kick-green);
+    }
+
+    .input-with-eye {
+      display: flex;
+      position: relative;
+      align-items: center;
+    }
+    .eye-toggle-btn {
+      position: absolute;
+      right: 8px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 14px;
+      padding: 4px;
+    }
+
+    /* Hassas Veri Maskelemesi (Yayıncı Koruması) */
+    .masked-blur {
+      filter: blur(5px);
+      user-select: none;
+      pointer-events: none;
+      transition: filter 0.2s;
+    }
+
+    .meter-bar {
+      height: 10px;
+      background: #0b0f19;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      margin-top: 6px;
+    }
+    .meter-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--kick-green), #facc15, #ef4444);
+      transition: width 0.08s ease;
+    }
+
+    .btn-action {
+      background: var(--kick-green);
+      color: #000;
+      font-weight: 800;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s;
+      letter-spacing: 0.5px;
+    }
+    .btn-action:hover { background: #47dc13; }
+    .btn-action.btn-stop {
+      background: var(--red);
+      color: #fff;
+    }
+    .btn-secondary {
+      background: #1e293b;
+      color: #fff;
+      border: 1px solid var(--card-border);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-secondary:hover { background: #334155; }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .metric-box {
+      background: #0b0f19;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+    }
+    .metric-val {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--kick-green);
+      font-family: 'Rajdhani', sans-serif;
+    }
+    .metric-lbl {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .transcript-box {
+      height: 380px;
+      overflow-y: auto;
+      background: #0b0f19;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 13px;
+    }
+    .transcript-entry {
+      background: #141c2c;
+      border-left: 3px solid var(--kick-green);
+      padding: 10px 12px;
+      border-radius: 6px;
+    }
+    .tr-orig { color: var(--text-muted); font-size: 12px; }
+    .en-trans { color: #fff; font-weight: 600; margin-top: 4px; font-size: 14px; }
+    .badge-rehearsal {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      color: #60a5fa;
+      background: rgba(96, 165, 250, 0.15);
+      border: 1px solid rgba(96, 165, 250, 0.3);
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-right: 4px;
+    }
+    .badge-live {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      color: #ef4444;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-right: 4px;
+    }
+
+    .copy-box {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    /* Açılır Kapanır Akordeon Rehberler */
+    .accordion-box {
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      margin-top: 16px;
+      overflow: hidden;
+      background: #0b0f19;
+    }
+    .accordion-header {
+      background: #131b2e;
+      padding: 12px 16px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #cbd5e1;
+      user-select: none;
+      transition: background 0.15s;
+    }
+    .accordion-header:hover { background: #1a253a; }
+    .accordion-icon {
+      font-size: 10px;
+      color: var(--kick-green);
+      transition: transform 0.2s ease;
+    }
+    .accordion-body {
+      display: none;
+      padding: 16px;
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      border-top: 1px solid var(--card-border);
+    }
+    .accordion-body.open { display: block; }
+    .accordion-body ol, .accordion-body ul {
+      margin-left: 20px;
+      margin-top: 6px;
+      margin-bottom: 6px;
+    }
+    .accordion-body li { margin-bottom: 4px; }
+
+    .range-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    input[type="range"] {
+      flex: 1;
+      accent-color: var(--kick-green);
+    }
+    .range-val {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--kick-green);
+      min-width: 45px;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <div class="logo">CODUM.TR <span>STREAM</span></div>
+      <span class="badge-pro">PRO STUDIO</span>
+    </div>
+
+    <div class="header-actions">
+      <!-- 1. Yayın Modu: Kulaklık Provası vs Canlı Yayın -->
+      <div class="segmented-switch">
+        <button id="mode-sandbox-btn" class="seg-btn active rehearsal" title="Sadece kendi kulaklığınızda ses provası yapın">
+          🎧 <span data-i18n="mode_rehearsal">Kulaklık Provası</span>
+        </button>
+        <button id="mode-live-btn" class="seg-btn" title="Dublajı OBS ve Kick izleyicilerine canlı iletin">
+          🔴 <span data-i18n="mode_live">Canlı Yayın</span>
+        </button>
+      </div>
+
+      <!-- 2. Yayıncı Ekran Koruması (Streamer Shield) -->
+      <button id="streamer-shield-btn" class="header-btn active" title="Ekran Paylaşırken Yayın Anahtarı ve Kazançları Gizle">
+        🛡️ <span data-i18n="shield_label">Yayıncı Koruması</span>
+      </button>
+
+      <!-- 3. Acil Susturma -->
+      <button id="panic-mute-btn" class="panic-btn" title="Dublaj sesini tek tıkla anında sustur">
+        🛑 <span data-i18n="panic_mute">Sustur</span>
+      </button>
+
+      <!-- 4. Durum Hapı -->
+      <div class="status-pill">
+        <span id="status-dot" class="status-dot"></span>
+        <span id="status-badge" data-i18n="status_idle">Hazır</span>
+      </div>
+
+      <!-- 5. Dil Değiştirici -->
+      <div class="segmented-switch">
+        <button id="lang-btn-tr" class="seg-btn active">TR</button>
+        <button id="lang-btn-en" class="seg-btn">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- SEKMELER (NAV TABS - 6 Bölüm) -->
+  <nav class="nav-tabs">
+    <button class="tab-btn active" data-tab="tab-overview" data-i18n="tab_overview">🎙️ Canlı Yayın</button>
+    <button class="tab-btn" data-tab="tab-audio-voice" data-i18n="tab_audio_voice">🎚️ Ses & Voice DNA</button>
+    <button class="tab-btn" data-tab="tab-culture" data-i18n="tab_culture">🌍 Çeviri & AI Motoru</button>
+    <button class="tab-btn" data-tab="tab-obs" data-i18n="tab_obs">📺 OBS & İzleyici</button>
+    <button class="tab-btn" data-tab="tab-health-cost" data-i18n="tab_health_cost">🩺 Teşhis & Maliyet</button>
+    <button class="tab-btn" data-tab="tab-setup" style="color: #60a5fa;" data-i18n="tab_setup">📚 Kurulum Kılavuzu</button>
+  </nav>
+
+  <main>
+    <!-- 1. BÖLÜM: CANLI YAYIN & AKIŞ -->
+    <div id="tab-overview" class="tab-content active">
+      <div class="grid-2">
+        <div class="card">
+          <h2>🎙️ Yayıncı Canlı Kontrolü</h2>
+          
+          <div class="form-group">
+            <label>Kick Kanal Adınız</label>
+            <input type="text" id="channel-name" value="streamer">
+          </div>
+
+          <div class="form-group">
+            <label>Yayın Anahtarı (Stream Key)</label>
+            <div class="input-with-eye">
+              <input type="password" id="stream-key" value="codum_live_key">
+              <button type="button" id="toggle-key-visibility" class="eye-toggle-btn" title="Göster / Gizle">👁️</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Mikrofon Girişi</label>
+            <select id="audio-device-select">
+              <option value="">Mikrofonlar taranıyor...</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Mikrofon Seviyesi (VU Meter)</label>
+            <div class="meter-bar">
+              <div id="meter-fill" class="meter-fill"></div>
+            </div>
+          </div>
+
+          <button id="toggle-stream-btn" class="btn-action" style="width: 100%; justify-content: center; margin-top: 10px;">
+            🚀 CANLI DUBLAJI BAŞLAT
+          </button>
+
+          <div class="metrics-grid">
+            <div class="metric-box">
+              <div id="metric-duration" class="metric-val">00:00</div>
+              <div class="metric-lbl">Yayın Süresi</div>
+            </div>
+            <div class="metric-box">
+              <div id="metric-cost" class="metric-val shield-sensitive">$0.00</div>
+              <div class="metric-lbl">AI Harcaması</div>
+            </div>
+            <div class="metric-box">
+              <div id="metric-utterances" class="metric-val">0</div>
+              <div class="metric-lbl">Çevrilen Cümle</div>
+            </div>
+            <div class="metric-box">
+              <div id="metric-lang" class="metric-val" style="color: #60a5fa;">EN</div>
+              <div class="metric-lbl">Hedef Dil</div>
+            </div>
+          </div>
+
+          <!-- Açılır Kapanır Hızlı Başlangıç Rehberi -->
+          <div class="accordion-box">
+            <div class="accordion-header" onclick="toggleAccordion('acc-overview')">
+              <span>📖 Hızlı Başlangıç & Prova Rehberi</span>
+              <span id="acc-overview-icon" class="accordion-icon">▼</span>
+            </div>
+            <div id="acc-overview" class="accordion-body">
+              <ol>
+                <li><b>Mikrofonu Seçin:</b> Açılır listeden kendi yayın mikrofonunuzu seçin.</li>
+                <li><b>VU Metreyi İzleyin:</b> Konuştuğunuzda yeşil seviye çubuğunun hareket ettiğini doğrulayın.</li>
+                <li><b>Prova Modunda Test Edin:</b> Sağ üstteki <code>🎧 Kulaklık Provası</code> seçiliyken <i>"Canlı Dublajı Başlat"</i>a basın. Mikrofonunuza Türkçe bir cümle söylediğinizde çevrilen İngilizce dublaj sesi doğrudan kulaklığınızda çalacaktır.</li>
+                <li><b>Canlı Yayına Geçin:</b> Sesin tonundan ve hızından memnunsanız modu <code>🔴 Canlı Yayın</code>a getirin. Artık ses OBS ve Kick izleyicilerinize akar.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>⚡ Canlı Konuşma & Dublaj Akışı</h2>
+          <div id="transcript-feed" class="transcript-box">
+            <div style="color: #64748b; text-align: center; margin-top: 150px;">
+              Canlı dublaj başladığında söylediğiniz cümleler ve İngilizce karşılıkları anlık burada akacaktır.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. BÖLÜM: SES & VOICE DNA (BİRLEŞTİRİLMİŞ AKUSTİK MERKEZİ) -->
+    <div id="tab-audio-voice" class="tab-content">
+      <div class="grid-2">
+        <!-- VAD ve Hassasiyet Ayarları -->
+        <div class="card">
+          <h2>🎚️ Mikrofon Hassasiyeti & VAD Eşiği</h2>
+          
+          <div class="form-group">
+            <label>Konuşma Algılama Hassasiyeti (VAD Eşiği)</label>
+            <div class="range-wrap">
+              <input type="range" id="vad-sensitivity" min="0.005" max="0.08" step="0.005" value="0.015">
+              <span id="vad-val" class="range-val">0.015</span>
+            </div>
+            <small style="color: var(--text-muted); font-size: 11px;">Mekanik klavye veya fan sesi varsa eşiği artırın; sessiz ortamda fısıltı için düşürün.</small>
+          </div>
+
+          <div class="form-group">
+            <label>Cümle Bitiş Sessizlik Süresi</label>
+            <div class="range-wrap">
+              <input type="range" id="silence-threshold" min="200" max="1000" step="50" value="400">
+              <span id="silence-val" class="range-val">400ms</span>
+            </div>
+            <small style="color: var(--text-muted); font-size: 11px;">Konuşmanız bittikten kaç milisaniye sonra çevirinin tetikleneceğini belirler.</small>
+          </div>
+
+          <button id="save-audio-settings-btn" class="btn-action">💾 Ses Ayarlarını Kaydet</button>
+
+          <div class="accordion-box">
+            <div class="accordion-header" onclick="toggleAccordion('acc-audio')">
+              <span>🎚️ Hassasiyet & Sessizlik Ayarı İpuçları</span>
+              <span id="acc-audio-icon" class="accordion-icon">▼</span>
+            </div>
+            <div id="acc-audio" class="accordion-body">
+              <ul>
+                <li><b>Hızlı Oyunlar (Valorant, Apex):</b> Sessizlik süresini <code>300ms - 350ms</code> yapın, kısa cümleler gecikmeden hızlıca çevrilsin.</li>
+                <li><b>Sohbet Yayınları (Just Chatting):</b> Sessizlik süresini <code>450ms - 600ms</code> yapın, durakladığınızda cümleleriniz bölünmesin.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Voice DNA Studio -->
+        <div class="card">
+          <h2>🧬 Voice DNA Studio (Ses Klonlama)</h2>
+          
+          <div style="background: #0b0f19; padding: 12px; border-radius: 8px; border-left: 3px solid var(--kick-green); margin-bottom: 14px;">
+            <p style="color: var(--text-muted); font-size: 12px; line-height: 1.5;">
+              <b>Kusursuz Klon:</b> 30 saniye boyunca fonetik metni yayındaki doğal enerjinizle okuyun. Arka planda oyun/müzik sesi olmamalıdır.
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label>📜 Tavsiye Fonetik Okuma Metni:</label>
+            <div style="background: #0b0f19; border: 1px dashed var(--card-border); padding: 10px; border-radius: 6px; color: #cbd5e1; font-size: 12px; line-height: 1.5;">
+              <i>"Selam chat, hoş geldiniz! Bugün çılgın bir yayın olacak. Şuradan kaçtık, bomba patladı, refleksler tavan yaptı. Hadi maçı alıyoruz, takipte kalın!"</i>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+            <button id="rec-btn" class="btn-action" style="background: #ef4444; color: #fff; flex: 1; justify-content: center;">
+              🎙️ 30 Saniye Ses Kaydet
+            </button>
+          </div>
+          <div id="rec-timer" style="font-size: 11px; color: #94a3b8; margin-bottom: 10px;">Hazır</div>
+          <audio id="recorded-audio-preview" controls style="width: 100%; margin-bottom: 10px; display: none;"></audio>
+
+          <div class="form-group">
+            <label>Veya Temiz Ses Dosyası Yükle (.wav / .mp3):</label>
+            <input type="file" id="voice-sample-file" accept="audio/*">
+            <input type="text" id="voice-clone-name" value="Yayıncı Sesim" placeholder="Ses Profili Adı" style="margin-top: 8px;">
+          </div>
+
+          <!-- Kalite Raporu -->
+          <div id="quality-report" style="display: none; background: #0b0f19; border: 1px solid var(--card-border); padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <span style="font-weight: 700; font-size: 12px;">Akustik Kalite Skoru:</span>
+              <span id="quality-score-badge" class="badge-pro" style="font-size: 12px;">92/100 (MÜKEMMEL)</span>
+            </div>
+            <div id="quality-details" style="font-size: 11px; color: var(--text-muted); line-height: 1.4;"></div>
+          </div>
+
+          <button id="upload-clone-btn" class="btn-action" style="width: 100%; justify-content: center;">✨ Voice DNA Klonu Oluştur</button>
+          <div id="clone-status" style="margin-top: 8px; font-size: 12px; color: var(--kick-green); text-align: center;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. BÖLÜM: ÇEVİRİ & AI MOTORU (BYOK ANAHTAR YÖNETİMİ İLE) -->
+    <div id="tab-culture" class="tab-content">
+      <div class="grid-2">
+        <div class="card">
+          <h2>🌍 Language Intelligence & Çoklu AI Çeviri Motoru</h2>
+          
+          <div class="form-group">
+            <label>🧠 Yapay Zekâ Çeviri Motoru Seçimi</label>
+            <select id="ai-engine-select">
+              <option value="auto">⚡ Akıllı Otomatik (Groq LLaMA 3.3 + Gemini Hibrit Failover)</option>
+              <option value="gemini">🧠 Google Gemini 2.0 Flash (Deyim & Kültürel Anlamda Üstün)</option>
+              <option value="groq">⚡ Groq LLaMA 3.3 70B (~120ms Ultra Düşük Gecikme)</option>
+            </select>
+            <small style="color: var(--text-muted); font-size: 11px;">Canlı yayında motorlar anında geçiş yapabilir. Bir motor yanıt vermezse diğeri devreye girer.</small>
+          </div>
+
+          <div class="form-group">
+            <label>Hedef Dil</label>
+            <select id="target-language-select">
+              <option value="en">English (İngilizce - Küresel)</option>
+              <option value="es">Español (İspanyolca)</option>
+              <option value="de">Deutsch (Almanca)</option>
+              <option value="ru">Русский (Rusça)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Yayıncı Üslubu / Argo Modu</label>
+            <select id="slang-mode-select">
+              <option value="gamer_hype">Gamer Hype (Doğal argolar, heyecanlı tepkiler, Kick/Twitch jargonu)</option>
+              <option value="casual">Casual (Samimi, gündelik sohbet dili)</option>
+              <option value="clean">Aile Dostu (Küfür ve argo filtrelenir)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Öğrenen Deyim & Terim Sözlüğü (Custom Glossary JSON)</label>
+            <textarea id="custom-glossary" style="width: 100%; height: 80px; font-family: monospace;" placeholder='{"patladık": "cooked", "kanka": "bro", "aynen": "facts", "nazar değmesin": "knock on wood"}'></textarea>
+          </div>
+
+          <button id="save-culture-btn" class="btn-action" style="width: 100%; justify-content: center;">💾 AI Motorunu & Kuralları Kaydet</button>
+
+          <div class="accordion-box">
+            <div class="accordion-header" onclick="toggleAccordion('acc-culture')">
+              <span>🌍 Language Intelligence: Türkçe Deyimler Nasıl Korunur?</span>
+              <span id="acc-culture-icon" class="accordion-icon">▼</span>
+            </div>
+            <div id="acc-culture" class="accordion-body">
+              <p style="margin-bottom: 6px;"><b>Harfi Harfine Çeviri Engellendi:</b></p>
+              <ul>
+                <li><i>"Kafayı yersin"</i> ➔ <code>"That's completely insane"</code></li>
+                <li><i>"Gözünü seveyim"</i> ➔ <code>"Come on bro, please"</code></li>
+                <li><i>"Patladık"</i> ➔ <code>"We're totally cooked"</code></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- BYOK: Kendi API Anahtarlarını Bağla -->
+        <div class="card">
+          <h2>🔑 Kendi API Anahtarlarınızı Bağlayın (BYOK)</h2>
+          <p style="color: var(--text-muted); font-size: 12px; line-height: 1.5; margin-bottom: 14px;">
+            Yayıncılar kendi ücretsiz veya ucuz API anahtarlarını girer. Sunucumuzda hiçbir harcama faturanız oluşmaz, tüm maliyet doğrudan kendi hesabınızdan işlenir.
+          </p>
+
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <label style="margin: 0;">1. Groq API Key (Whisper STT & LLaMA 3.3 - 120ms)</label>
+              <span id="badge-groq" class="badge-pro" style="font-size: 10px;">KONTROL EDİLİYOR</span>
+            </div>
+            <input type="password" id="input-key-groq" class="shield-sensitive" placeholder="gsk_..." style="font-family: monospace;">
+            <small style="font-size: 11px;"><a href="https://console.groq.com/keys" target="_blank" style="color: var(--kick-green); text-decoration: none;">🔗 console.groq.com adresinden ücretsiz alın</a></small>
+          </div>
+
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <label style="margin: 0;">2. Google Gemini API Key (Gemini 2.0 Flash)</label>
+              <span id="badge-gemini" class="badge-pro" style="font-size: 10px;">KONTROL EDİLİYOR</span>
+            </div>
+            <input type="password" id="input-key-gemini" class="shield-sensitive" placeholder="AIza..." style="font-family: monospace;">
+            <small style="font-size: 11px;"><a href="https://aistudio.google.com/apikey" target="_blank" style="color: #60a5fa; text-decoration: none;">🔗 aistudio.google.com adresinden ücretsiz alın</a></small>
+          </div>
+
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <label style="margin: 0;">3. ElevenLabs API Key (Birebir Ses Klonlama)</label>
+              <span id="badge-elevenlabs" class="badge-pro" style="font-size: 10px;">KONTROL EDİLİYOR</span>
+            </div>
+            <input type="password" id="input-key-elevenlabs" class="shield-sensitive" placeholder="sk_..." style="font-family: monospace;">
+            <small style="font-size: 11px;"><a href="https://elevenlabs.io/" target="_blank" style="color: #facc15; text-decoration: none;">🔗 elevenlabs.io adresinden kendi sesinizi klonlayın</a></small>
+          </div>
+
+          <button id="save-keys-btn" class="btn-action" style="width: 100%; justify-content: center; margin-top: 6px;">
+            🔐 Anahtarları Güvenle Kaydet
+          </button>
+          <div id="keys-status-msg" style="margin-top: 8px; font-size: 11px; text-align: center; color: var(--kick-green);"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. BÖLÜM: OBS & İZLEYİCİ -->
+    <div id="tab-obs" class="tab-content">
+      <div class="card">
+        <h2>📺 OBS Sesli Browser Source & İzleyici Kurulumu</h2>
+        <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 14px;">
+          OBS Studio'nuza hem estetik canlı altyazıyı hem de <b>orijinal dublaj sesini</b> aktarmak için aşağıdaki bağlantıyı kullanın.
+        </p>
+
+        <div class="form-group">
+          <label>OBS Browser Source URL (Kişiye Özel Dinamik IP):</label>
+          <div class="copy-box">
+            <input type="text" id="obs-url-input" class="shield-sensitive" readonly value="">
+            <button id="copy-obs-url-btn" class="btn-secondary">📋 Kopyala</button>
+          </div>
+        </div>
+
+        <div style="background: #0b0f19; padding: 14px; border-radius: 8px; border-left: 3px solid var(--kick-green); margin-top: 14px;">
+          <h4 style="color: #fff; font-size: 13px; margin-bottom: 4px;">⚡ OBS Ayarında En Kritik Nokta:</h4>
+          <p style="color: var(--text-muted); font-size: 12px; line-height: 1.5;">
+            OBS'te Kaynak Ekle ➔ <b>Tarayıcı (Browser)</b> deyin. URL'yi yapıştırın. Ardından özellikler penceresinde <b>"Sesi OBS üzerinden kontrol et" (Control audio via OBS)</b> kutucuğunu işaretleyin. Bu sayede dublaj sesi OBS ses mikserinize gelecektir!
+          </p>
+        </div>
+
+        <div class="accordion-box">
+          <div class="accordion-header" onclick="toggleAccordion('acc-obs')">
+            <span>📺 OBS Studio 3 Adımda Kurulum Kılavuzu</span>
+            <span id="acc-obs-icon" class="accordion-icon">▼</span>
+          </div>
+          <div id="acc-obs" class="accordion-body">
+            <ol>
+              <li><b>Kaynağı Ekleyin:</b> OBS ekranının altındaki <b>Kaynaklar (Sources)</b> kutusunda <code>+</code> butonuna basın ve <b>Tarayıcı (Browser Source)</b> seçin.</li>
+              <li><b>URL'yi Girin:</b> Yukarıdaki bağlantıyı yapıştırın. Genişlik: <code>1920</code>, Yükseklik: <code>1080</code>.</li>
+              <li><b>Sesi Miksere Bağlayın:</b> Özelliklerde <b>"Sesi OBS üzerinden kontrol et" (Control audio via OBS)</b> kutucuğunu MUTLAKA işaretleyin.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. BÖLÜM: TEŞHİS & MALİYET (BİRLEŞTİRİLMİŞ SAĞLIK & RAPOR) -->
+    <div id="tab-health-cost" class="tab-content">
+      <div class="card">
+        <h2>🩺 Canlı Boru Hattı Gecikmesi & Sağlık İzleyici</h2>
+        <div class="metrics-grid" style="margin-bottom: 18px;">
+          <div class="metric-box">
+            <div id="health-stt-ms" class="metric-val" style="color: #60a5fa;">0 ms</div>
+            <div class="metric-lbl">STT (Konuşma Tanıma)</div>
+          </div>
+          <div class="metric-box">
+            <div id="health-llm-ms" class="metric-val" style="color: #a78bfa;">0 ms</div>
+            <div class="metric-lbl">LLM (Çeviri)</div>
+          </div>
+          <div class="metric-box">
+            <div id="health-tts-ms" class="metric-val" style="color: #facc15;">0 ms</div>
+            <div class="metric-lbl">TTS (Dublaj Sentezi)</div>
+          </div>
+          <div class="metric-box">
+            <div id="health-total-ms" class="metric-val" style="color: var(--kick-green);">0 ms</div>
+            <div class="metric-lbl">Toplam Boru Hattı</div>
+          </div>
+        </div>
+
+        <!-- 4'lü Servis Durumu -->
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 18px;">
+          <div style="background: #0b0f19; border: 1px solid var(--card-border); padding: 10px; border-radius: 8px;">
+            <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">STT Servisi</div>
+            <div id="srv-stt" style="color: var(--kick-green); font-weight: 700; margin-top: 3px; font-size: 12px;">🟢 Groq Whisper</div>
+          </div>
+          <div style="background: #0b0f19; border: 1px solid var(--card-border); padding: 10px; border-radius: 8px;">
+            <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Çeviri Motoru</div>
+            <div id="srv-llm" style="color: var(--kick-green); font-weight: 700; margin-top: 3px; font-size: 12px;">🟢 LLaMA / Gemini</div>
+          </div>
+          <div style="background: #0b0f19; border: 1px solid var(--card-border); padding: 10px; border-radius: 8px;">
+            <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Ses Klon Motoru</div>
+            <div id="srv-tts" style="color: var(--kick-green); font-weight: 700; margin-top: 3px; font-size: 12px;">🟢 ElevenLabs / Cartesia</div>
+          </div>
+          <div style="background: #0b0f19; border: 1px solid var(--card-border); padding: 10px; border-radius: 8px;">
+            <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">OBS Canlı Çıkış</div>
+            <div id="srv-obs" style="color: #94a3b8; font-weight: 700; margin-top: 3px; font-size: 12px;">⚪ Bekleniyor</div>
+          </div>
+        </div>
+
+        <!-- Gerçek AI Harcaması -->
+        <h3 style="font-size: 13px; margin: 16px 0 8px; color: #fff;">💳 Gerçek Yapay Zekâ Maliyet & Harcama Detayı</h3>
+        <div class="metrics-grid" style="margin-bottom: 18px;">
+          <div class="metric-box">
+            <div id="real-stt-sec" class="metric-val">0.0 sn</div>
+            <div class="metric-lbl">Aktif Konuşma Süresi</div>
+          </div>
+          <div class="metric-box">
+            <div id="real-words" class="metric-val">0</div>
+            <div class="metric-lbl">Çevrilen Kelime</div>
+          </div>
+          <div class="metric-box">
+            <div id="real-chars" class="metric-val">0</div>
+            <div class="metric-lbl">Sentezlenen Harf</div>
+          </div>
+          <div class="metric-box">
+            <div id="real-total-usd" class="metric-val shield-sensitive" style="color: #facc15;">$0.0000</div>
+            <div class="metric-lbl">Toplam AI Maliyeti</div>
+          </div>
+        </div>
+
+        <!-- Olay Günlüğü -->
+        <h3 style="font-size: 13px; margin-bottom: 8px; color: #fff;">📋 Akıllı Olay & Kurtarma Günlüğü</h3>
+        <div id="health-event-log" style="height: 140px; overflow-y: auto; background: #0b0f19; border: 1px solid var(--card-border); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; gap: 6px; font-family: monospace; font-size: 11px;">
+          <div style="color: #64748b;">Sağlık teşhis günlüğü hazır...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. BÖLÜM: KURULUM KILAVUZU -->
+    <div id="tab-setup" class="tab-content">
+      <div class="card">
+        <h2>📚 CODUM.TR STREAM Uçtan Uca Kurulum Kılavuzu</h2>
+        <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 18px;">
+          Sistemi yayın ortamınıza entegre etmek için aşağıdaki 4 basit adımı takip edin.
+        </p>
+
+        <div style="background: #0b0f19; border: 1px solid var(--card-border); border-radius: 8px; padding: 14px; margin-bottom: 12px;">
+          <h3 style="color: var(--kick-green); font-size: 13px; margin-bottom: 6px;">🚀 Adım 1: Programı Başlatma (İki Kolay Seçenek)</h3>
+          <ul style="color: #cbd5e1; font-size: 12px; line-height: 1.6; margin-left: 20px;">
+            <li><b>Seçenek A (Python Gerekmez - Önerilen):</b> <code>dist\CODUM_StreamDub\</code> klasöründeki <b><code>CODUM_StreamDub.exe</code></b> dosyasına çift tıklayın. Panel otomatik olarak tarayıcınızda açılır.</li>
+            <li><b>Seçenek B:</b> Klasördeki <b><code>baslat.bat</code></b> dosyasına çift tıklayarak çalıştırın.</li>
+          </ul>
+        </div>
+
+        <div style="background: #0b0f19; border: 1px solid var(--card-border); border-radius: 8px; padding: 14px; margin-bottom: 12px;">
+          <h3 style="color: #60a5fa; font-size: 13px; margin-bottom: 6px;">📺 Adım 2: OBS Studio Sesli Dublaj & Altyazı Ekleme</h3>
+          <ol style="color: #cbd5e1; font-size: 12px; line-height: 1.6; margin-left: 20px;">
+            <li>OBS Studio'da <b>Kaynaklar (Sources)</b> kutusunda <code>+</code> butonuna basıp <b>Tarayıcı (Browser Source)</b> ekleyin.</li>
+            <li>URL alanına paneldeki <b>OBS sekmesinde</b> otomatik oluşturulan bağlantıyı yapıştırın.</li>
+            <li><b>ÖNEMLİ:</b> <b>"Sesi OBS üzerinden kontrol et" (Control audio via OBS)</b> kutucuğunu işaretleyin.</li>
+          </ol>
+        </div>
+
+        <div style="background: #0b0f19; border: 1px solid var(--card-border); border-radius: 8px; padding: 14px; margin-bottom: 12px;">
+          <h3 style="color: #facc15; font-size: 13px; margin-bottom: 6px;">🧩 Adım 3: İzleyici Chrome Eklentisi (Audio Ducking)</h3>
+          <ul style="color: #cbd5e1; font-size: 12px; line-height: 1.6; margin-left: 20px;">
+            <li>Chrome'da <code>chrome://extensions/</code> adresini açın ve sağ üstten <b>Geliştirici Modu</b>'nu açın.</li>
+            <li><b>Paketlenmemiş öge yükle</b> deyip <code>çeviri/extension</code> klasörünü seçin.</li>
+            <li>Kick.com'da yayını açtığınızda video oynatıcıda yeşil <b><code>🎙️ EN DUB</code></b> butonunu göreceksiniz.</li>
+          </ul>
+        </div>
+
+        <div style="background: #0b0f19; border: 1px solid var(--card-border); border-radius: 8px; padding: 14px;">
+          <h3 style="color: #a78bfa; font-size: 13px; margin-bottom: 6px;">🔑 Adım 4: API Anahtarları (.env Dosyası)</h3>
+          <p style="color: #cbd5e1; font-size: 12px; line-height: 1.6; margin-bottom: 6px;">
+            En yüksek hız ve kalite için <code>.env</code> dosyasına anahtarlarınızı girebilirsiniz:
+          </p>
+          <pre style="background: #141c2c; padding: 10px; border-radius: 6px; font-size: 11px; color: #53FC18; overflow-x: auto;">
+GROQ_API_KEY=gsk_...           # 120ms ultra hızlı Whisper STT & LLaMA 3.3 için
+GEMINI_API_KEY=AIza...         # Alternatif çeviri için
+ELEVENLABS_API_KEY=...         # Birebir ses klonlama için
+          </pre>
+          <small style="color: var(--text-muted); font-size: 11px;">* Anahtar girilmezse sistem yerel test motorlarıyla çalışır.</small>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Telif Hakkı & Orijinal Lisans Mührü Altlığı -->
+  <footer style="border-top: 1px solid var(--card-border); padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--text-muted); background: #0b0f19;">
+    <div>
+      🛡️ <b>CODUM.TR STREAM PRO STUDIO</b> &bull; Telif Hakkı &copy; 2026 CODUM.TR. Tüm Hakları Saklıdır.
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span>Lisans Mührü:</span>
+      <span id="license-seal-badge" class="badge-pro" style="font-size: 10px;">DOĞRULANIYOR</span>
+    </div>
+  </footer>
+
+  <script>
+    let isStreaming = false;
+    let audioContext = null;
+    let micStream = null;
+    let processorNode = null;
+    let ws = null;
+    let durationSeconds = 0;
+    let timerInterval = null;
+    let isPanicMuted = false;
+    let isSandboxMode = true; // Varsayılan olarak Kulaklık Provası modu açık
+    let isShieldActive = true; // Varsayılan olarak yayıncı ekran koruması açık
+    let mediaRecorder = null;
+    let recordedChunks = [];
+    let recordedBlob = null;
+    let recCountdown = 0;
+    let recInterval = null;
+
+    // --- Dil Desteği (TR / EN i18n) ---
+    const i18nDict = {
+      tr: {
+        shield_label: "Yayıncı Koruması",
+        mode_rehearsal: "Kulaklık Provası",
+        mode_live: "Canlı Yayın",
+        panic_mute: "Sustur",
+        panic_muted: "Susturuldu",
+        status_idle: "Hazır",
+        status_rehearsal: "Provada",
+        status_live: "Yayında",
+        tab_overview: "🎙️ Canlı Yayın",
+        tab_audio_voice: "🎚️ Ses & Voice DNA",
+        tab_culture: "🌍 Çeviri & AI Motoru",
+        tab_obs: "📺 OBS & İzleyici",
+        tab_health_cost: "🩺 Teşhis & Maliyet",
+        tab_setup: "📚 Kurulum Kılavuzu",
+        btn_start_stream: "🚀 CANLI DUBLAJI BAŞLAT",
+        btn_stop_stream: "🛑 DUBLAJI DURDUR"
+      },
+      en: {
+        shield_label: "Streamer Shield",
+        mode_rehearsal: "Headphone Rehearsal",
+        mode_live: "Go Live",
+        panic_mute: "Mute",
+        panic_muted: "Muted",
+        status_idle: "Ready",
+        status_rehearsal: "Rehearsal",
+        status_live: "Live",
+        tab_overview: "🎙️ Live Stream",
+        tab_audio_voice: "🎚️ Audio & Voice DNA",
+        tab_culture: "🌍 Translation & AI",
+        tab_obs: "📺 OBS & Viewers",
+        tab_health_cost: "🩺 Diagnostics & Cost",
+        tab_setup: "📚 Setup Guide",
+        btn_start_stream: "🚀 START LIVE DUBBING",
+        btn_stop_stream: "🛑 STOP DUBBING"
+      }
+    };
+
+    let currentUiLang = localStorage.getItem('streamdub_lang') || 'tr';
+
+    function setUiLanguage(lang) {
+      currentUiLang = lang;
+      localStorage.setItem('streamdub_lang', lang);
+
+      const trBtn = document.getElementById('lang-btn-tr');
+      const enBtn = document.getElementById('lang-btn-en');
+
+      if (lang === 'en') {
+        enBtn.classList.add('active');
+        trBtn.classList.remove('active');
+      } else {
+        trBtn.classList.add('active');
+        enBtn.classList.remove('active');
+      }
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (i18nDict[lang] && i18nDict[lang][key]) {
+          el.innerText = i18nDict[lang][key];
+        }
+      });
+    }
+
+    document.getElementById('lang-btn-tr').addEventListener('click', () => setUiLanguage('tr'));
+    document.getElementById('lang-btn-en').addEventListener('click', () => setUiLanguage('en'));
+    setTimeout(() => setUiLanguage(currentUiLang), 100);
+
+    // Dinamik URL
+    const channelInput = document.getElementById('channel-name');
+    const streamKeyInput = document.getElementById('stream-key');
+    const obsUrlInput = document.getElementById('obs-url-input');
+
+    function updateDynamicUrls() {
+      const ch = channelInput.value.trim() || 'streamer';
+      const origin = window.location.origin;
+      obsUrlInput.value = `${origin}/overlay?channel=${ch}`;
+    }
+    window.addEventListener('DOMContentLoaded', updateDynamicUrls);
+    setTimeout(updateDynamicUrls, 200);
+
+    // Akordeon Aç/Kapa
+    window.toggleAccordion = function(id) {
+      const body = document.getElementById(id);
+      const icon = document.getElementById(`${id}-icon`);
+      if (body.classList.contains('open')) {
+        body.classList.remove('open');
+        if (icon) icon.innerText = "▼";
+      } else {
+        body.classList.add('open');
+        if (icon) icon.innerText = "▲";
+      }
+    };
+
+    // Ekran Koruması (Maskeleme)
+    const shieldBtn = document.getElementById('streamer-shield-btn');
+    const eyeBtn = document.getElementById('toggle-key-visibility');
+
+    function applyShieldState() {
+      const labelText = i18nDict[currentUiLang].shield_label;
+      if (isShieldActive) {
+        shieldBtn.classList.add('active');
+        shieldBtn.innerHTML = `🛡️ <span data-i18n="shield_label">${labelText}</span>`;
+        document.querySelectorAll('.shield-sensitive').forEach(el => el.classList.add('masked-blur'));
+        streamKeyInput.type = "password";
+        eyeBtn.innerText = "👁️";
+      } else {
+        shieldBtn.classList.remove('active');
+        shieldBtn.innerHTML = `🔓 <span data-i18n="shield_label">${labelText}</span>`;
+        document.querySelectorAll('.shield-sensitive').forEach(el => el.classList.remove('masked-blur'));
+      }
+    }
+
+    shieldBtn.addEventListener('click', () => {
+      isShieldActive = !isShieldActive;
+      applyShieldState();
+    });
+
+    eyeBtn.addEventListener('click', () => {
+      if (streamKeyInput.type === "password") {
+        streamKeyInput.type = "text";
+        eyeBtn.innerText = "🙈";
+      } else {
+        streamKeyInput.type = "password";
+        eyeBtn.innerText = "👁️";
+      }
+    });
+    setTimeout(applyShieldState, 300);
+
+    // Mod Değiştirme (Prova vs Canlı)
+    const sandboxBtn = document.getElementById('mode-sandbox-btn');
+    const liveBtn = document.getElementById('mode-live-btn');
+
+    sandboxBtn.addEventListener('click', () => {
+      isSandboxMode = true;
+      sandboxBtn.classList.add('active', 'rehearsal');
+      liveBtn.classList.remove('active', 'live');
+      updateStatusIndicator();
+    });
+
+    liveBtn.addEventListener('click', () => {
+      isSandboxMode = false;
+      liveBtn.classList.add('active', 'live');
+      sandboxBtn.classList.remove('active', 'rehearsal');
+      updateStatusIndicator();
+    });
+
+    function updateStatusIndicator() {
+      const dot = document.getElementById('status-dot');
+      const badge = document.getElementById('status-badge');
+      if (!isStreaming) {
+        dot.className = "status-dot";
+        badge.innerText = i18nDict[currentUiLang].status_idle;
+      } else if (isSandboxMode) {
+        dot.className = "status-dot rehearsal";
+        badge.innerText = i18nDict[currentUiLang].status_rehearsal;
+      } else {
+        dot.className = "status-dot live";
+        badge.innerText = i18nDict[currentUiLang].status_live;
+      }
+    }
+
+    // Elementler
+    const deviceSelect = document.getElementById('audio-device-select');
+    const toggleBtn = document.getElementById('toggle-stream-btn');
+    const panicBtn = document.getElementById('panic-mute-btn');
+    const meterFill = document.getElementById('meter-fill');
+    const transcriptFeed = document.getElementById('transcript-feed');
+
+    // Tab Yönetimi
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.getAttribute('data-tab')).classList.add('active');
+      });
+    });
+
+    channelInput.addEventListener('input', () => updateDynamicUrls());
+    document.getElementById('copy-obs-url-btn').addEventListener('click', () => {
+      navigator.clipboard.writeText(obsUrlInput.value);
+      alert("OBS Browser Source URL panoya kopyalandı!");
+    });
+
+    // Mikrofonları Listele
+    async function loadAudioDevices() {
+      try {
+        await navigator.mediaDevices.getUserMedia({ audio: true });
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const audioInputs = devices.filter(d => d.kind === 'audioinput');
+        deviceSelect.innerHTML = '';
+        audioInputs.forEach((dev, idx) => {
+          const opt = document.createElement('option');
+          opt.value = dev.deviceId;
+          opt.text = dev.label || `Mikrofon ${idx + 1}`;
+          deviceSelect.appendChild(opt);
+        });
+      } catch (err) {
+        console.warn("Mikrofon izni bekleniyor.");
+      }
+    }
+    loadAudioDevices();
+
+    // Panic Mute
+    panicBtn.addEventListener('click', async () => {
+      isPanicMuted = !isPanicMuted;
+      const ch = channelInput.value.trim() || 'streamer';
+      await fetch(`/api/panic_mute/${ch}?muted=${isPanicMuted}`, { method: 'POST' });
+      if (isPanicMuted) {
+        panicBtn.classList.add('muted');
+        panicBtn.innerHTML = `🛑 <span data-i18n="panic_muted">${i18nDict[currentUiLang].panic_muted}</span>`;
+      } else {
+        panicBtn.classList.remove('muted');
+        panicBtn.innerHTML = `🛑 <span data-i18n="panic_mute">${i18nDict[currentUiLang].panic_mute}</span>`;
+      }
+    });
+
+    // Dublaj Başlat / Durdur
+    toggleBtn.addEventListener('click', async () => {
+      if (!isStreaming) {
+        await startStreaming();
+      } else {
+        stopStreaming();
+      }
+    });
+
+    async function startStreaming() {
+      const channel = channelInput.value.trim() || 'streamer';
+      const key = streamKeyInput.value.trim() || 'codum_live_key';
+      const deviceId = deviceSelect.value;
+      const host = window.location.host || 'localhost:8765';
+      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      const wsUrl = `${protocol}//${host}/ws/stream/${channel}?role=streamer&token=${encodeURIComponent(key)}&sandbox=${isSandboxMode}`;
+
+      ws = new WebSocket(wsUrl);
+
+      ws.onopen = async () => {
+        isStreaming = true;
+        updateStatusIndicator();
+        toggleBtn.innerText = i18nDict[currentUiLang].btn_stop_stream;
+        toggleBtn.className = "btn-action btn-stop";
+
+        startMetricsTimer();
+
+        ws.onmessage = async (event) => {
+          try {
+            const data = JSON.parse(event.data);
+
+            if (data.type === 'subtitle' && data.translated) {
+              if (transcriptFeed.querySelector('div[style*="text-align: center"]')) {
+                transcriptFeed.innerHTML = '';
+              }
+              const entry = document.createElement('div');
+              entry.className = 'transcript-entry';
+              const modeBadge = data.is_sandbox ? `<span class="badge-rehearsal">PROVA</span>` : `<span class="badge-live">CANLI</span>`;
+              entry.innerHTML = `
+                <div class="tr-orig">🇹🇷 TR: "${data.original}"</div>
+                <div class="en-trans">🇬🇧 ${modeBadge}${data.lang.toUpperCase()}: "${data.translated}"</div>
+              `;
+              transcriptFeed.appendChild(entry);
+              transcriptFeed.scrollTop = transcriptFeed.scrollHeight;
+            }
+            else if (data.type === 'dub_audio' && data.is_sandbox && data.audio) {
+              playHeadphoneAudio(data.audio);
+            }
+          } catch(e) {}
+        };
+
+        audioContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 16000 });
+        micStream = await navigator.mediaDevices.getUserMedia({
+          audio: {
+            deviceId: deviceId ? { exact: deviceId } : undefined,
+            noiseSuppression: true,
+            echoCancellation: false,
+            channelCount: 1
+          }
+        });
+
+        const source = audioContext.createMediaStreamSource(micStream);
+        const analyser = audioContext.createAnalyser();
+        analyser.fftSize = 256;
+        source.connect(analyser);
+
+        const pcmData = new Uint8Array(analyser.frequencyBinCount);
+        function updateMeter() {
+          if (!isStreaming) return;
+          analyser.getByteFrequencyData(pcmData);
+          let sum = 0;
+          for (let i = 0; i < pcmData.length; i++) sum += pcmData[i];
+          const avg = sum / pcmData.length;
+          meterFill.style.width = `${Math.min(100, avg * 1.6)}%`;
+          requestAnimationFrame(updateMeter);
+        }
+        updateMeter();
+
+        const bufferSize = 2048;
+        processorNode = audioContext.createScriptProcessor(bufferSize, 1, 1);
+        processorNode.onaudioprocess = (e) => {
+          if (!isStreaming || ws.readyState !== WebSocket.OPEN) return;
+          const inputData = e.inputBuffer.getChannelData(0);
+          const pcm16 = new Int16Array(inputData.length);
+          for (let i = 0; i < inputData.length; i++) {
+            const s = Math.max(-1, Math.min(1, inputData[i]));
+            pcm16[i] = s < 0 ? s * 0x8000 : s * 0x7FFF;
+          }
+          ws.send(pcm16.buffer);
+        };
+        source.connect(processorNode);
+        processorNode.connect(audioContext.destination);
+      };
+
+      ws.onerror = () => {
+        alert("Bağlantı hatası! Sunucunun çalıştığından ve Yayın Anahtarından emin olun.");
+        stopStreaming();
+      };
+    }
+
+    function stopStreaming() {
+      isStreaming = false;
+      if (processorNode) processorNode.disconnect();
+      if (audioContext) audioContext.close();
+      if (micStream) micStream.getTracks().forEach(t => t.stop());
+      if (ws) ws.close();
+      clearInterval(timerInterval);
+
+      updateStatusIndicator();
+      toggleBtn.innerText = i18nDict[currentUiLang].btn_start_stream;
+      toggleBtn.className = "btn-action";
+      meterFill.style.width = "0%";
+    }
+
+    function startMetricsTimer() {
+      durationSeconds = 0;
+      timerInterval = setInterval(async () => {
+        durationSeconds++;
+        const mins = String(Math.floor(durationSeconds / 60)).padStart(2, '0');
+        const secs = String(durationSeconds % 60).padStart(2, '0');
+        document.getElementById('metric-duration').innerText = `${mins}:${secs}`;
+
+        if (durationSeconds % 2 === 0) {
+          const ch = channelInput.value.trim() || 'streamer';
+          try {
+            const resp = await fetch(`/api/metrics/${ch}`);
+            const data = await resp.json();
+            const m = data.metrics;
+            document.getElementById('metric-cost').innerText = `$${m.total_cost_usd.toFixed(4)}`;
+            document.getElementById('metric-utterances').innerText = m.utterances;
+            document.getElementById('real-stt-sec').innerText = `${m.stt_seconds} sn`;
+            document.getElementById('real-words').innerText = m.words_translated;
+            document.getElementById('real-chars').innerText = m.tts_chars;
+            document.getElementById('real-total-usd').innerText = `$${m.total_cost_usd.toFixed(4)}`;
+
+            const hResp = await fetch(`/api/health/${ch}`);
+            const hData = await hResp.json();
+            document.getElementById('health-stt-ms').innerText = `${hData.latency.stt_ms} ms`;
+            document.getElementById('health-llm-ms').innerText = `${hData.latency.llm_ms} ms`;
+            document.getElementById('health-tts-ms').innerText = `${hData.latency.tts_ms} ms`;
+            document.getElementById('health-total-ms').innerText = `${hData.latency.total_ms} ms`;
+
+            document.getElementById('srv-stt').innerText = hData.services.stt.status === 'HEALTHY' ? `🟢 ${hData.services.stt.provider}` : `⚠️ ${hData.services.stt.provider}`;
+            document.getElementById('srv-llm').innerText = hData.services.llm.status === 'HEALTHY' ? `🟢 ${hData.services.llm.provider}` : `⚠️ ${hData.services.llm.provider}`;
+            document.getElementById('srv-tts').innerText = hData.services.tts.status === 'HEALTHY' ? `🟢 ${hData.services.tts.provider}` : `⚠️ ${hData.services.tts.provider}`;
+            document.getElementById('srv-obs').innerText = hData.services.obs_socket.status === 'HEALTHY' ? `🟢 Aktif` : `⚪ Bekleniyor`;
+
+            const logBox = document.getElementById('health-event-log');
+            if (hData.recent_events && hData.recent_events.length > 0) {
+              logBox.innerHTML = '';
+              hData.recent_events.forEach(ev => {
+                const item = document.createElement('div');
+                const color = ev.level === 'RECOVERY' ? '#facc15' : (ev.level === 'WARNING' ? '#f97316' : (ev.level === 'ERROR' ? '#ef4444' : '#94a3b8'));
+                item.innerHTML = `<span style="color: #64748b;">[${ev.time}]</span> <span style="color: ${color}; font-weight: 700;">[${ev.level}]</span> <span style="color: #e2e8f0;">${ev.message}</span>`;
+                logBox.appendChild(item);
+              });
+            }
+          } catch(e) {}
+        }
+      }, 1000);
+    }
+
+    // Kulaklık Provası Sesi
+    let headphoneAudioCtx = null;
+    async function playHeadphoneAudio(base64Audio) {
+      try {
+        if (!headphoneAudioCtx) {
+          headphoneAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (headphoneAudioCtx.state === 'suspended') {
+          await headphoneAudioCtx.resume();
+        }
+        const bin = atob(base64Audio);
+        const bytes = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        const buf = await headphoneAudioCtx.decodeAudioData(bytes.buffer);
+        const src = headphoneAudioCtx.createBufferSource();
+        src.buffer = buf;
+        src.connect(headphoneAudioCtx.destination);
+        src.start(0);
+      } catch (err) {
+        console.warn("Kulaklık ses hatası:", err);
+      }
+    }
+
+    // Voice DNA Ses Kaydı
+    const recBtn = document.getElementById('rec-btn');
+    const recTimer = document.getElementById('rec-timer');
+    const previewAudio = document.getElementById('recorded-audio-preview');
+    let isRecordingVoice = false;
+
+    recBtn.addEventListener('click', async () => {
+      if (!isRecordingVoice) {
+        startVoiceRecording();
+      } else {
+        stopVoiceRecording();
+      }
+    });
+
+    async function startVoiceRecording() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: { noiseSuppression: true, echoCancellation: false }
+        });
+        recordedChunks = [];
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.ondataavailable = (e) => {
+          if (e.data.size > 0) recordedChunks.push(e.data);
+        };
+        mediaRecorder.onstop = async () => {
+          recordedBlob = new Blob(recordedChunks, { type: 'audio/wav' });
+          previewAudio.src = URL.createObjectURL(recordedBlob);
+          previewAudio.style.display = 'block';
+          stream.getTracks().forEach(t => t.stop());
+          validateVoiceSample(recordedBlob);
+        };
+
+        mediaRecorder.start();
+        isRecordingVoice = true;
+        recBtn.innerText = "⏹️ Kaydı Bitir";
+        recBtn.style.background = "#dc2626";
+
+        recCountdown = 30;
+        recTimer.innerText = `Kalan Süre: ${recCountdown} sn (Metni okuyun)`;
+        recInterval = setInterval(() => {
+          recCountdown--;
+          recTimer.innerText = `Kalan Süre: ${recCountdown} sn`;
+          if (recCountdown <= 0) stopVoiceRecording();
+        }, 1000);
+
+      } catch (err) {
+        alert("Mikrofon erişimi sağlanamadı!");
+      }
+    }
+
+    function stopVoiceRecording() {
+      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+      }
+      isRecordingVoice = false;
+      clearInterval(recInterval);
+      recBtn.innerText = "🎙️ Tekrar Kaydet";
+      recBtn.style.background = "#ef4444";
+      recTimer.innerText = "Kayıt bitti! Kalite skoru aşağıda hesaplandı.";
+    }
+
+    async function validateVoiceSample(blob) {
+      const reportBox = document.getElementById('quality-report');
+      const scoreBadge = document.getElementById('quality-score-badge');
+      const detailsEl = document.getElementById('quality-details');
+
+      const formData = new FormData();
+      formData.append("file", blob, "sample.wav");
+
+      try {
+        const resp = await fetch('/api/voice/validate', { method: 'POST', body: formData });
+        const res = await resp.json();
+        reportBox.style.display = 'block';
+
+        scoreBadge.innerText = `${res.score}/100 (${res.status})`;
+        scoreBadge.style.color = res.score >= 70 ? "#53FC18" : (res.score >= 50 ? "#facc15" : "#ef4444");
+
+        let html = `<b>Süre:</b> ${res.duration_sec} sn | <b>Zirve Gücü:</b> ${res.peak_db} dB | <b>Dip Ses:</b> ${res.rms_db} dB<br>`;
+        if (res.issues && res.issues.length > 0) {
+          html += `<span style="color: #f87171;">⚠️ Uyarılar:</span> ${res.issues.join(", ")}<br>`;
+        }
+        if (res.recommendations && res.recommendations.length > 0) {
+          html += `<span style="color: #60a5fa;">💡 Tavsiye:</span> ${res.recommendations.join(", ")}`;
+        }
+        detailsEl.innerHTML = html;
+      } catch (e) {
+        console.warn("Kalite analizi yapılamadı:", e);
+      }
+    }
+
+    // Voice DNA Yükle
+    document.getElementById('upload-clone-btn').addEventListener('click', async () => {
+      const fileInput = document.getElementById('voice-sample-file');
+      const nameInput = document.getElementById('voice-clone-name');
+      const statusEl = document.getElementById('clone-status');
+      const ch = channelInput.value.trim() || 'streamer';
+
+      const formData = new FormData();
+      if (recordedBlob) {
+        formData.append("file", recordedBlob, "sample.wav");
+      } else if (fileInput.files && fileInput.files.length > 0) {
+        formData.append("file", fileInput.files[0]);
+      } else {
+        alert("Lütfen önce sesinizi kaydedin veya bir dosya seçin!");
+        return;
+      }
+
+      formData.append("voice_name", nameInput.value);
+      statusEl.innerText = "🧬 Akustik tını analiz ediliyor ve Voice DNA klonu oluşturuluyor...";
+
+      try {
+        const resp = await fetch(`/api/voice/clone/${ch}`, { method: 'POST', body: formData });
+        const res = await resp.json();
+        if (res.status === 'success') {
+          statusEl.innerText = `✅ Voice DNA Hazır! Klon ID: ${res.voice_id}`;
+        } else if (res.status === 'warning') {
+          statusEl.innerText = `⚠️ Uyarı: ${res.message} (Skor: ${res.validation.score}/100)`;
+        } else {
+          statusEl.innerText = `❌ Hata: ${res.message || 'Başarısız'}`;
+        }
+      } catch (err) {
+        statusEl.innerText = `❌ Yükleme hatası: ${err}`;
+      }
+    });
+
+    // Ses ve VAD Kaydet
+    document.getElementById('save-audio-settings-btn').addEventListener('click', async () => {
+      const ch = channelInput.value.trim() || 'streamer';
+      const vadSens = parseFloat(document.getElementById('vad-sensitivity').value);
+      const silThresh = parseInt(document.getElementById('silence-threshold').value);
+
+      await fetch(`/api/settings/${ch}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ vad_sensitivity: vadSens, silence_threshold_ms: silThresh })
+      });
+      alert("✅ Ses hassasiyeti ve VAD ayarları kaydedildi!");
+    });
+
+    document.getElementById('vad-sensitivity').addEventListener('input', (e) => {
+      document.getElementById('vad-val').innerText = e.target.value;
+    });
+    document.getElementById('silence-threshold').addEventListener('input', (e) => {
+      document.getElementById('silence-val').innerText = `${e.target.value}ms`;
+    });
+
+    // Çeviri Ayarları Kaydet
+    document.getElementById('save-culture-btn').addEventListener('click', async () => {
+      const ch = channelInput.value.trim() || 'streamer';
+      const lang = document.getElementById('target-language-select').value;
+      const slang = document.getElementById('slang-mode-select').value;
+      const aiEngine = document.getElementById('ai-engine-select').value;
+      document.getElementById('metric-lang').innerText = lang.toUpperCase();
+
+      await fetch(`/api/settings/${ch}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ target_language: lang, slang_mode: slang, ai_engine: aiEngine })
+      });
+      alert(`✅ Çeviri motoru (${aiEngine.toUpperCase()}) ve dil kuralları kaydedildi!`);
+    });
+
+    // --- LİSANS VE BYOK API ANAHTARLARI YÖNETİMİ ---
+    async function loadLicenseSeal() {
+      try {
+        const resp = await fetch('/api/license');
+        const data = await resp.json();
+        const sealBadge = document.getElementById('license-seal-badge');
+        if (data.status === 'VERIFIED') {
+          sealBadge.innerText = `✅ TESCİLLİ (${data.seal_hash})`;
+          sealBadge.style.color = "#53FC18";
+        } else {
+          sealBadge.innerText = `⚠️ LİSANS İHLALİ TESPİT EDİLDİ`;
+          sealBadge.style.color = "#ef4444";
+        }
+      } catch (e) {}
+    }
+    loadLicenseSeal();
+
+    async function loadApiKeys() {
+      try {
+        const resp = await fetch('/api/keys');
+        const data = await resp.json();
+        
+        const bGroq = document.getElementById('badge-groq');
+        const bGemini = document.getElementById('badge-gemini');
+        const bEleven = document.getElementById('badge-elevenlabs');
+        
+        if (data.groq_configured) {
+          bGroq.innerText = "🟢 AKTİF";
+          bGroq.style.color = "#53FC18";
+          document.getElementById('input-key-groq').placeholder = data.groq_masked;
+        } else {
+          bGroq.innerText = "⚪ YEREL TEST";
+          bGroq.style.color = "#94a3b8";
+        }
+
+        if (data.gemini_configured) {
+          bGemini.innerText = "🟢 AKTİF";
+          bGemini.style.color = "#53FC18";
+          document.getElementById('input-key-gemini').placeholder = data.gemini_masked;
+        } else {
+          bGemini.innerText = "⚪ YEREL TEST";
+          bGemini.style.color = "#94a3b8";
+        }
+
+        if (data.elevenlabs_configured) {
+          bEleven.innerText = "🟢 AKTİF";
+          bEleven.style.color = "#53FC18";
+          document.getElementById('input-key-elevenlabs').placeholder = data.elevenlabs_masked;
+        } else {
+          bEleven.innerText = "⚪ YEREL TEST";
+          bEleven.style.color = "#94a3b8";
+        }
+      } catch (e) {}
+    }
+    loadApiKeys();
+
+    document.getElementById('save-keys-btn').addEventListener('click', async () => {
+      const groq = document.getElementById('input-key-groq').value.trim();
+      const gemini = document.getElementById('input-key-gemini').value.trim();
+      const eleven = document.getElementById('input-key-elevenlabs').value.trim();
+      const statusMsg = document.getElementById('keys-status-msg');
+
+      statusMsg.innerText = "Anahtarlar kaydediliyor...";
+
+      try {
+        const resp = await fetch('/api/keys', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            groq_api_key: groq,
+            gemini_api_key: gemini,
+            elevenlabs_api_key: eleven
+          })
+        });
+        const res = await resp.json();
+        if (res.status === 'success') {
+          statusMsg.innerText = "✅ API Anahtarları .env dosyasına güvenle kaydedildi ve anında devreye alındı!";
+          loadApiKeys();
+        } else {
+          statusMsg.innerText = `❌ Hata: ${res.message}`;
+        }
+      } catch (e) {
+        statusMsg.innerText = "❌ Kayıt sırasında sunucu hatası oluştu.";
+      }
+    });
+  </script>
+</body>
+</html>

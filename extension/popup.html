@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>StreamDub Ayarları</title>
+  <style>
+    body {
+      width: 290px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0b0f19;
+      color: #f1f5f9;
+      margin: 0;
+      padding: 16px;
+    }
+    h2 {
+      font-size: 15px;
+      margin: 0 0 12px;
+      color: #53FC18;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .form-group {
+      margin-bottom: 14px;
+    }
+    label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type="text"], input[type="range"] {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    input[type="text"] {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #fff;
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+    }
+    .slider-val {
+      font-size: 12px;
+      color: #53FC18;
+      float: right;
+    }
+    .btn-save {
+      width: 100%;
+      background: #53FC18;
+      color: #000;
+      font-weight: 800;
+      border: none;
+      padding: 9px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+    .btn-save:hover {
+      background: #44db12;
+    }
+  </style>
+</head>
+<body>
+  <h2>🎙️ StreamDub Kontrol</h2>
+  <div class="form-group">
+    <label>Sunucu WebSocket Adresi</label>
+    <input type="text" id="server-url" value="ws://localhost:8765">
+  </div>
+  <div class="form-group">
+    <label>HLS Senkron Gecikmesi <span id="sync-val" class="slider-val">2200ms</span></label>
+    <input type="range" id="sync-delay" min="0" max="6000" step="100" value="2200">
+  </div>
+  <div class="form-group">
+    <label>Orijinal Ses Kısma (Ducking) <span id="duck-val" class="slider-val">18%</span></label>
+    <input type="range" id="ducking-vol" min="5" max="50" step="1" value="18">
+  </div>
+  <button id="save-btn" class="btn-save">Ayarları Kaydet</button>
+
+  <script>
+    const syncDelayInput = document.getElementById('sync-delay');
+    const syncVal = document.getElementById('sync-val');
+    const duckInput = document.getElementById('ducking-vol');
+    const duckVal = document.getElementById('duck-val');
+
+    syncDelayInput.addEventListener('input', (e) => {
+      syncVal.innerText = `${e.target.value}ms`;
+    });
+    duckInput.addEventListener('input', (e) => {
+      duckVal.innerText = `${e.target.value}%`;
+    });
+
+    document.getElementById('save-btn').addEventListener('click', () => {
+      const serverUrl = document.getElementById('server-url').value;
+      const syncDelay = syncDelayInput.value;
+      const duckingVol = duckInput.value;
+
+      chrome.storage.local.set({
+        serverUrl: serverUrl,
+        syncDelay: syncDelay,
+        duckingVol: duckingVol
+      }, () => {
+        // Aktif sekmedeki content script'e canlı bildir
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+          if (tabs[0]?.id) {
+            chrome.tabs.sendMessage(tabs[0].id, {
+              action: "update_settings",
+              serverUrl: serverUrl,
+              syncDelay: syncDelay,
+              duckingVol: duckingVol
+            });
+          }
+        });
+        alert("StreamDub ayarları kaydedildi ve canlı uygulandı!");
+      });
+    });
+  </script>
+</body>
+</html>

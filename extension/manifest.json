@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "CODUM.TR STREAM - Kick AI Live Voice Dubbing",
+  "version": "1.0.0",
+  "description": "Kick yayınlarını izleyiciye özel ses sentezi ve dinamik ses kısma (Audio Ducking) ile gerçek zamanlı çevirir.",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "*://kick.com/*",
+    "*://*.kick.com/*",
+    "http://localhost:8765/*",
+    "ws://localhost:8765/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "StreamDub Ayarları"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://kick.com/*"],
+      "js": ["audio_ducking.js", "content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}
