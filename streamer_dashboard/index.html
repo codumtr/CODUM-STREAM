@@ -483,6 +483,247 @@
       min-width: 45px;
       text-align: right;
     }
+
+    /* --- WIZARD / ONBOARDING STEPPER CSS --- */
+    .wizard-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(5, 8, 15, 0.92);
+      backdrop-filter: blur(12px);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .wizard-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 35px rgba(83, 252, 24, 0.15);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 840px;
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: wizFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes wizFadeIn {
+      from { opacity: 0; transform: scale(0.96) translateY(12px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .wizard-header {
+      padding: 20px 28px 14px;
+      border-bottom: 1px solid #1e293b;
+      text-align: center;
+      background: #0f172a;
+    }
+    .wizard-title-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #53FC18;
+      background: rgba(83, 252, 24, 0.1);
+      border: 1px solid rgba(83, 252, 24, 0.3);
+      padding: 3px 12px;
+      border-radius: 20px;
+      margin-bottom: 6px;
+      letter-spacing: 0.8px;
+    }
+    .wizard-header h2 {
+      font-size: 21px;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .wizard-subtitle {
+      font-size: 12.5px;
+      color: #94a3b8;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+    .stepper-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 28px;
+      background: #0b0f19;
+      border-bottom: 1px solid #1e293b;
+    }
+    .step-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      opacity: 0.45;
+      transition: all 0.2s ease;
+    }
+    .step-node.active {
+      opacity: 1;
+    }
+    .step-node.completed {
+      opacity: 0.9;
+    }
+    .step-num {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #1e293b;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      border: 2px solid #334155;
+      transition: all 0.2s;
+    }
+    .step-node.active .step-num {
+      background: #53FC18;
+      color: #0b0f19;
+      border-color: #53FC18;
+      box-shadow: 0 0 12px rgba(83, 252, 24, 0.45);
+    }
+    .step-node.completed .step-num {
+      background: #10b981;
+      color: #fff;
+      border-color: #10b981;
+    }
+    .step-label {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #94a3b8;
+    }
+    .step-node.active .step-label {
+      color: #53FC18;
+    }
+    .step-line {
+      flex: 1;
+      height: 2px;
+      background: #1e293b;
+      margin: 0 8px;
+      margin-bottom: 14px;
+    }
+    .step-line.completed {
+      background: #10b981;
+    }
+    .wizard-body {
+      padding: 22px 30px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .wizard-step {
+      display: none;
+    }
+    .wizard-step.active {
+      display: block;
+      animation: stepIn 0.2s ease-out;
+    }
+    .wizard-footer {
+      padding: 14px 28px;
+      border-top: 1px solid #1e293b;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0f172a;
+    }
+    .wiz-field-group {
+      margin-bottom: 16px;
+    }
+    .wiz-field-group label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #e2e8f0;
+      margin-bottom: 6px;
+    }
+    .wiz-field-group input, .wiz-field-group select {
+      width: 100%;
+      background: #0b0f19;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 9px 13px;
+      color: #fff;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .wiz-field-group input:focus, .wiz-field-group select:focus {
+      border-color: #53FC18;
+      box-shadow: 0 0 0 2px rgba(83, 252, 24, 0.2);
+    }
+    .wiz-hint {
+      font-size: 11px;
+      color: #64748b;
+      margin-top: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .wiz-hint a {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .wiz-hint a:hover {
+      text-decoration: underline;
+    }
+    .wiz-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .wiz-select-card {
+      background: #0b0f19;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .wiz-select-card:hover {
+      border-color: #334155;
+      transform: translateY(-2px);
+    }
+    .wiz-select-card.selected {
+      border-color: #53FC18;
+      background: rgba(83, 252, 24, 0.08);
+      box-shadow: 0 0 12px rgba(83, 252, 24, 0.15);
+    }
+    .wiz-card-icon {
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+    .wiz-card-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .wiz-card-desc {
+      font-size: 10px;
+      color: #64748b;
+      margin-top: 3px;
+    }
+    .wiz-vu-container {
+      height: 12px;
+      background: #0b0f19;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid #1e293b;
+      margin-top: 8px;
+    }
+    .wiz-vu-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #10b981 0%, #53FC18 70%, #f59e0b 90%, #ef4444 100%);
+      transition: width 0.08s ease;
+    }
   </style>
 </head>
 <body>
@@ -530,6 +771,11 @@
         <svg height="14" width="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
         <span>GitHub</span>
       </a>
+
+      <!-- 7. Kurulum Sihirbazı Butonu -->
+      <button id="btn-reopen-wizard" class="header-btn" style="background: rgba(83, 252, 24, 0.12); border-color: rgba(83, 252, 24, 0.35); color: #53FC18; font-weight: 700;" title="Adım Adım Kurulum Sihirbazını Aç">
+        ⚡ <span id="wizard-badge-text">Kurulum Sihirbazı</span>
+      </button>
     </div>
   </header>
 
@@ -1656,6 +1902,608 @@ ELEVENLABS_API_KEY=...         # Birebir ses klonlama için
       } catch (e) {
         statusMsg.innerText = "❌ Kayıt sırasında sunucu hatası oluştu.";
       }
+    });
+  <!-- ============================================================ -->
+  <!-- CODUM.TR STREAM - ADIM ADIM KURULUM SİHİRBAZI (WIZARD MODAL) -->
+  <!-- ============================================================ -->
+  <div id="setup-wizard-modal" class="wizard-overlay" style="display: none;">
+    <div class="wizard-card">
+      <!-- Başlık -->
+      <div class="wizard-header">
+        <div class="wizard-title-badge">⚡ CODUM.TR STREAM PRO STUDIO</div>
+        <h2>Canlı Yayın ve Dublaj Kurulum Sihirbazı</h2>
+        <p class="wizard-subtitle">Yayına başlamadan önce bu 5 adımı tamamlayın. Ayarlarınız diske kaydedilir, bir sonraki açılışta doğrudan yayına hazır olursunuz.</p>
+      </div>
+
+      <!-- 5 Adımlı Gösterge Çubuğu (Stepper) -->
+      <div class="stepper-nav">
+        <div class="step-node active" data-step="1" id="step-nav-1">
+          <div class="step-num">1</div>
+          <div class="step-label">Mikrofon</div>
+        </div>
+        <div class="step-line" id="step-line-1"></div>
+        <div class="step-node" data-step="2" id="step-nav-2">
+          <div class="step-num">2</div>
+          <div class="step-label">API Anahtarları</div>
+        </div>
+        <div class="step-line" id="step-line-2"></div>
+        <div class="step-node" data-step="3" id="step-nav-3">
+          <div class="step-num">3</div>
+          <div class="step-label">Dil & Jargon</div>
+        </div>
+        <div class="step-line" id="step-line-3"></div>
+        <div class="step-node" data-step="4" id="step-nav-4">
+          <div class="step-num">4</div>
+          <div class="step-label">Ses Klonlama</div>
+        </div>
+        <div class="step-line" id="step-line-4"></div>
+        <div class="step-node" data-step="5" id="step-nav-5">
+          <div class="step-num">5</div>
+          <div class="step-label">OBS & Başlat</div>
+        </div>
+      </div>
+
+      <!-- Adım Gövdeleri -->
+      <div class="wizard-body">
+        <!-- ADIM 1: MİKROFON VE SES GİRİŞİ -->
+        <div class="wizard-step active" id="wstep-1">
+          <h3 style="color:#fff; font-size:16px; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+            🎙️ Adım 1: Yayıncı Mikrofonu ve Ses Girişi
+          </h3>
+          <p style="font-size:12px; color:#94a3b8; margin-bottom:16px;">
+            Yapay zekanın sesinizi en net ve gürültüsüz şekilde algılayabilmesi için canlı yayında kullandığınız ana mikrofonu seçin ve test edin.
+          </p>
+
+          <div class="wiz-field-group">
+            <label>Mikrofon Aygıtı:</label>
+            <select id="wiz-mic-select">
+              <option value="default">Varsayılan Sistem Mikrofonu</option>
+            </select>
+          </div>
+
+          <div style="background:#0b0f19; border:1px solid #1e293b; border-radius:10px; padding:16px; margin-top:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:12px; font-weight:700; color:#e2e8f0;">Canlı Ses Seviyesi (VU Meter):</span>
+              <button id="wiz-btn-test-mic" class="btn btn-secondary" style="font-size:11px; padding:5px 12px; background:#1e293b; color:#53FC18; border-color:#334155;">
+                🔴 Mikrofonu Test Et
+              </button>
+            </div>
+            <div class="wiz-vu-container">
+              <div id="wiz-vu-bar" class="wiz-vu-fill"></div>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:10px; color:#64748b; margin-top:4px;">
+              <span>Sessiz</span>
+              <span>İdeal Konuşma Seviyesi</span>
+              <span>Maksimum</span>
+            </div>
+            <div id="wiz-mic-feedback" style="font-size:11px; color:#10b981; margin-top:8px; display:none;">
+              ✅ Mikrofonunuz başarıyla algılandı ve ses girişi alınıyor!
+            </div>
+          </div>
+        </div>
+
+        <!-- ADIM 2: API ANAHTARLARI (BYOK) -->
+        <div class="wizard-step" id="wstep-2">
+          <h3 style="color:#fff; font-size:16px; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+            🔑 Adım 2: Ücretsiz Yapay Zeka API Anahtarlarınız (BYOK)
+          </h3>
+          <div style="background:rgba(59, 130, 246, 0.08); border:1px solid rgba(59, 130, 246, 0.25); border-radius:10px; padding:12px 16px; margin-bottom:16px; font-size:12px; color:#93c5fd; line-height:1.5;">
+            💡 <strong>Bring Your Own Key (Kendi Anahtarını Getir):</strong> CODUM.TR STREAM yayıncıları abonelik veya fatura ödemez. Servislerin ücretsiz kotalarını kendi anahtarlarınızla kullanırsınız.
+          </div>
+
+          <div class="wiz-field-group">
+            <label>⚡ Groq API Key <span style="color:#53FC18; font-size:11px;">(Önerilen - Ultra Hızlı Whisper STT & Llama)</span>:</label>
+            <input type="password" id="wiz-key-groq" placeholder="gsk_..." />
+            <div class="wiz-hint">
+              <span>Milisaniyelik ses tanıma ve çeviri motoru</span>
+              <a href="https://console.groq.com/keys" target="_blank">Ücretsiz Groq Key Al ➔</a>
+            </div>
+          </div>
+
+          <div class="wiz-field-group">
+            <label>🤖 Google Gemini API Key <span style="color:#38bdf8; font-size:11px;">(Yedek & Çok Dilli Çeviri)</span>:</label>
+            <input type="password" id="wiz-key-gemini" placeholder="AIzaSy..." />
+            <div class="wiz-hint">
+              <span>Doğal dil ve çok dilli çeviri motoru</span>
+              <a href="https://aistudio.google.com/" target="_blank">Ücretsiz Gemini Key Al ➔</a>
+            </div>
+          </div>
+
+          <div class="wiz-field-group">
+            <label>🎙️ ElevenLabs API Key <span style="color:#a855f7; font-size:11px;">(Opsiyonel - Kendi Sesinizle Dublaj)</span>:</label>
+            <input type="password" id="wiz-key-eleven" placeholder="sk_..." />
+            <div class="wiz-hint">
+              <span>Birebir yayıncı ses klonlama (Voice DNA) için</span>
+              <a href="https://elevenlabs.io/" target="_blank">ElevenLabs Hesabı ➔</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADIM 3: DİL VE JARGON SEÇİMİ -->
+        <div class="wizard-step" id="wstep-3">
+          <h3 style="color:#fff; font-size:16px; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
+            🌍 Adım 3: Çevrilecek Dil ve Yayın Jargonu
+          </h3>
+          <p style="font-size:12px; color:#94a3b8; margin-bottom:14px;">
+            Türkçe konuştuğunuzda yayına hangi dilde ve hangi tarzda anlık dublaj yapılacağını belirleyin.
+          </p>
+
+          <label style="font-size:12.5px; font-weight:700; color:#e2e8f0; display:block; margin-bottom:6px;">Hedef Dublaj Dili:</label>
+          <div class="wiz-card-grid" id="wiz-lang-grid">
+            <div class="wiz-select-card selected" data-lang="en">
+              <div class="wiz-card-icon">🇬🇧</div>
+              <div class="wiz-card-title">İngilizce</div>
+              <div class="wiz-card-desc">English (Küresel)</div>
+            </div>
+            <div class="wiz-select-card" data-lang="es">
+              <div class="wiz-card-icon">🇪🇸</div>
+              <div class="wiz-card-title">İspanyolca</div>
+              <div class="wiz-card-desc">Español (LATAM)</div>
+            </div>
+            <div class="wiz-select-card" data-lang="de">
+              <div class="wiz-card-icon">🇩🇪</div>
+              <div class="wiz-card-title">Almanca</div>
+              <div class="wiz-card-desc">Deutsch (Avrupa)</div>
+            </div>
+            <div class="wiz-select-card" data-lang="ru">
+              <div class="wiz-card-icon">🇷🇺</div>
+              <div class="wiz-card-title">Rusça</div>
+              <div class="wiz-card-desc">Русский</div>
+            </div>
+            <div class="wiz-select-card" data-lang="fr">
+              <div class="wiz-card-icon">🇫🇷</div>
+              <div class="wiz-card-title">Fransızca</div>
+              <div class="wiz-card-desc">Français</div>
+            </div>
+            <div class="wiz-select-card" data-lang="ja">
+              <div class="wiz-card-icon">🇯🇵</div>
+              <div class="wiz-card-title">Japonca</div>
+              <div class="wiz-card-desc">日本語</div>
+            </div>
+          </div>
+
+          <div style="margin-top:20px;">
+            <label style="font-size:12.5px; font-weight:700; color:#e2e8f0; display:block; margin-bottom:6px;">Yayıncı Konuşma Tarzı (Jargon):</label>
+            <div class="wiz-card-grid" id="wiz-slang-grid">
+              <div class="wiz-select-card selected" data-slang="gamer_hype">
+                <div class="wiz-card-icon">🎮</div>
+                <div class="wiz-card-title">Gamer & Hype</div>
+                <div class="wiz-card-desc">GG, clutch, argo ve chat jargonu</div>
+              </div>
+              <div class="wiz-select-card" data-slang="just_chatting">
+                <div class="wiz-card-icon">💬</div>
+                <div class="wiz-card-title">Just Chatting</div>
+                <div class="wiz-card-desc">Doğal, akıcı samimi sohbet</div>
+              </div>
+              <div class="wiz-select-card" data-slang="pro_formal">
+                <div class="wiz-card-icon">💼</div>
+                <div class="wiz-card-title">Profesyonel</div>
+                <div class="wiz-card-desc">Resmi ve temiz telaffuz</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADIM 4: SES KLONLAMA (VOICE DNA) -->
+        <div class="wizard-step" id="wstep-4">
+          <h3 style="color:#fff; font-size:16px; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
+            🧬 Adım 4: Yayıncı Ses Klonlama (Voice DNA)
+          </h3>
+          <p style="font-size:12px; color:#94a3b8; margin-bottom:14px;">
+            Dublaj robotik bir ses yerine sizin kendi sesinizin tınısıyla konuşur. İster kendi sesinizi 20 saniye tanıtın, ister hazır enerjik yayıncı seslerinden birini seçin.
+          </p>
+
+          <div class="wiz-card-grid" id="wiz-voice-grid">
+            <div class="wiz-select-card selected" data-voice="custom_clone">
+              <div class="wiz-card-icon">🎙️</div>
+              <div class="wiz-card-title">Kendi Ses Tonum</div>
+              <div class="wiz-card-desc">Mikrofondan klonlanan ses</div>
+            </div>
+            <div class="wiz-select-card" data-voice="gamer_male">
+              <div class="wiz-card-icon">👦</div>
+              <div class="wiz-card-title">Hype Gamer (Erkek)</div>
+              <div class="wiz-card-desc">Enerjik ve tok erkek sesi</div>
+            </div>
+            <div class="wiz-select-card" data-voice="energetic_female">
+              <div class="wiz-card-icon">👧</div>
+              <div class="wiz-card-title">Enerjik (Kadın)</div>
+              <div class="wiz-card-desc">Akıcı ve dinamik kadın sesi</div>
+            </div>
+            <div class="wiz-select-card" data-voice="deep_narrator">
+              <div class="wiz-card-icon">📻</div>
+              <div class="wiz-card-title">Deep Radio Host</div>
+              <div class="wiz-card-desc">Radyo ve podcast tarzı</div>
+            </div>
+          </div>
+
+          <div style="background:#0b0f19; border:1px solid #1e293b; border-radius:10px; padding:14px; margin-top:16px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <div style="font-size:12px; font-weight:700; color:#fff;">30 Saniyelik Ses Örneği Kaydet</div>
+              <div style="font-size:11px; color:#64748b;">Mikrofona doğal konuşma tonunuzla konuşarak kendi ses izinizi oluşturun.</div>
+            </div>
+            <button id="wiz-btn-record-voice" class="btn btn-secondary" style="font-size:11px; padding:6px 14px; background:#1e293b; color:#53FC18; border-color:#334155;">
+              ⏺️ Ses Kaydet
+            </button>
+          </div>
+        </div>
+
+        <!-- ADIM 5: OBS ENTEGRASYONU & BAŞLAT -->
+        <div class="wizard-step" id="wstep-5">
+          <h3 style="color:#fff; font-size:16px; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
+            📺 Adım 5: OBS Studio Bağlantısı & Yayına Başlama
+          </h3>
+          <p style="font-size:12px; color:#94a3b8; margin-bottom:16px;">
+            Tebrikler, tüm yapılandırma hazır! Şimdi son olarak canlı altyazı ve dublaj akışını OBS Studio'ya tek tıkla ekleyin.
+          </p>
+
+          <div style="background:#0b0f19; border:1px solid #1e293b; border-radius:10px; padding:16px; margin-bottom:16px;">
+            <label style="font-size:11px; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:0.5px;">OBS Browser Source (Tarayıcı Kaynağı) URL Adresi:</label>
+            <div style="display:flex; gap:8px; margin-top:6px;">
+              <input type="text" id="wiz-obs-url" value="http://127.0.0.1:8765/overlay" readonly style="font-family:monospace; background:#05080f; border-color:#334155; color:#53FC18; font-size:12px;" />
+              <button id="wiz-btn-copy-obs" class="btn btn-secondary" style="background:#1e293b; border-color:#334155; color:#fff; font-size:12px; padding:0 14px; white-space:nowrap;">
+                📋 Kopyala
+              </button>
+            </div>
+            <div style="margin-top:10px; font-size:11.5px; color:#94a3b8; line-height:1.5;">
+              • OBS'de <strong>Kaynaklar (+)</strong> ➔ <strong>Tarayıcı (Browser)</strong> ekleyin.<br>
+              • Genişlik: <strong>1920</strong>, Yükseklik: <strong>1080</strong> girin.<br>
+              • <strong>"Sesi OBS üzerinden kontrol et"</strong> kutucuğunu işaretleyin.
+            </div>
+          </div>
+
+          <div style="background:rgba(83, 252, 24, 0.06); border:1px solid rgba(83, 252, 24, 0.2); border-radius:10px; padding:14px; font-size:12px; color:#a7f3d0; display:flex; align-items:center; gap:10px;">
+            <span style="font-size:20px;">🛡️</span>
+            <div>
+              <strong>Kalıcı Kayıt Garantisi:</strong> Tamamla butonuna bastığınızda girdiğiniz tüm mikrofon, dil, anahtar ve ses seçimleri diske güvenle kaydedilir. Bir sonraki programı açtığınızda doğrudan stüdyoya girersiniz!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alt Butonlar -->
+      <div class="wizard-footer">
+        <button id="wiz-btn-prev" class="btn btn-secondary" style="background:#1e293b; color:#94a3b8; border-color:#334155; font-size:12px; padding:8px 16px; visibility:hidden;">
+          ⬅ Geri
+        </button>
+        <div id="wiz-step-indicator" style="font-size:12px; font-weight:700; color:#64748b;">
+          Adım 1 / 5
+        </div>
+        <button id="wiz-btn-next" class="btn btn-primary" style="background:#53FC18; color:#0b0f19; font-weight:800; font-size:13px; padding:9px 22px; border-radius:8px; border:none; cursor:pointer; box-shadow:0 0 15px rgba(83, 252, 24, 0.35);">
+          İleri ➔
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- STEP-BY-STEP WIZARD VE KALICI AYAR YÖNETİMİ ---
+    let currentWizStep = 1;
+    let wizAudioCtx = null;
+    let wizAnalyser = null;
+    let wizMicStream = null;
+    let wizVuInterval = null;
+
+    let activeWizSettings = {
+      setup_completed: false,
+      selected_mic: 'default',
+      groq_api_key: '',
+      gemini_api_key: '',
+      elevenlabs_api_key: '',
+      target_language: 'en',
+      slang_mode: 'gamer_hype',
+      voice_clone_id: 'custom_clone',
+      obs_delay_ms: 0
+    };
+
+    // Mikrofonları Listele
+    async function populateWizMics() {
+      try {
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const micSelect = document.getElementById('wiz-mic-select');
+        micSelect.innerHTML = '';
+        let micCount = 0;
+        devices.forEach(device => {
+          if (device.kind === 'audioinput') {
+            micCount++;
+            const opt = document.createElement('option');
+            opt.value = device.deviceId;
+            opt.innerText = device.label || `Mikrofon ${micCount}`;
+            micSelect.appendChild(opt);
+          }
+        });
+        if (micCount === 0) {
+          const opt = document.createElement('option');
+          opt.value = 'default';
+          opt.innerText = 'Varsayılan Mikrofon (Algılandı)';
+          micSelect.appendChild(opt);
+        }
+      } catch (e) {
+        console.warn('Mikrofon listeleme hatası:', e);
+      }
+    }
+
+    // VU Metre Testi
+    async function testWizMic() {
+      const feedback = document.getElementById('wiz-mic-feedback');
+      const vuBar = document.getElementById('wiz-vu-bar');
+      try {
+        if (wizMicStream) {
+          wizMicStream.getTracks().forEach(t => t.stop());
+        }
+        const devId = document.getElementById('wiz-mic-select').value;
+        const constraints = {
+          audio: devId && devId !== 'default' ? { deviceId: { exact: devId } } : true
+        };
+        wizMicStream = await navigator.mediaDevices.getUserMedia(constraints);
+        wizAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        wizAnalyser = wizAudioCtx.createAnalyser();
+        wizAnalyser.fftSize = 256;
+        const source = wizAudioCtx.createMediaStreamSource(wizMicStream);
+        source.connect(wizAnalyser);
+
+        feedback.style.display = 'block';
+        feedback.innerText = '🎙️ Konuşun! Ses seviyeniz analiz ediliyor...';
+
+        const dataArray = new Uint8Array(wizAnalyser.frequencyBinCount);
+        if (wizVuInterval) clearInterval(wizVuInterval);
+        wizVuInterval = setInterval(() => {
+          wizAnalyser.getByteFrequencyData(dataArray);
+          let sum = 0;
+          for (let i = 0; i < dataArray.length; i++) sum += dataArray[i];
+          const avg = sum / dataArray.length;
+          const pct = Math.min(100, Math.round((avg / 128) * 100));
+          vuBar.style.width = pct + '%';
+          if (pct > 15) {
+            feedback.innerText = '✅ Harika! Mikrofon sesiniz net ve güçlü algılandı.';
+          }
+        }, 80);
+      } catch (err) {
+        feedback.style.display = 'block';
+        feedback.style.color = '#ef4444';
+        feedback.innerText = '❌ Mikrofona erişilemedi: ' + err.message;
+      }
+    }
+
+    // Seçim Kartları Dinleyicileri
+    function initCardSelectors() {
+      // Dil Kartları
+      document.querySelectorAll('#wiz-lang-grid .wiz-select-card').forEach(card => {
+        card.addEventListener('click', () => {
+          document.querySelectorAll('#wiz-lang-grid .wiz-select-card').forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+          activeWizSettings.target_language = card.getAttribute('data-lang');
+        });
+      });
+
+      // Jargon Kartları
+      document.querySelectorAll('#wiz-slang-grid .wiz-select-card').forEach(card => {
+        card.addEventListener('click', () => {
+          document.querySelectorAll('#wiz-slang-grid .wiz-select-card').forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+          activeWizSettings.slang_mode = card.getAttribute('data-slang');
+        });
+      });
+
+      // Ses Klonlama Kartları
+      document.querySelectorAll('#wiz-voice-grid .wiz-select-card').forEach(card => {
+        card.addEventListener('click', () => {
+          document.querySelectorAll('#wiz-voice-grid .wiz-select-card').forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+          activeWizSettings.voice_clone_id = card.getAttribute('data-voice');
+        });
+      });
+    }
+
+    // Adım Değiştirme
+    function goToStep(step) {
+      if (step < 1 || step > 5) return;
+      currentWizStep = step;
+
+      // İçerikleri güncelle
+      for (let i = 1; i <= 5; i++) {
+        const stepEl = document.getElementById(`wstep-${i}`);
+        const navEl = document.getElementById(`step-nav-${i}`);
+        const lineEl = document.getElementById(`step-line-${i}`);
+
+        if (stepEl) {
+          stepEl.classList.toggle('active', i === step);
+        }
+        if (navEl) {
+          navEl.classList.toggle('active', i === step);
+          navEl.classList.toggle('completed', i < step);
+          const numEl = navEl.querySelector('.step-num');
+          if (numEl) {
+            numEl.innerText = i < step ? '✓' : i;
+          }
+        }
+        if (lineEl) {
+          lineEl.classList.toggle('completed', i < step);
+        }
+      }
+
+      // Alt Butonları Güncelle
+      const prevBtn = document.getElementById('wiz-btn-prev');
+      const nextBtn = document.getElementById('wiz-btn-next');
+      const indicator = document.getElementById('wiz-step-indicator');
+
+      prevBtn.style.visibility = step === 1 ? 'hidden' : 'visible';
+      indicator.innerText = `Adım ${step} / 5`;
+
+      if (step === 5) {
+        nextBtn.innerHTML = '🚀 KAYDET VE STÜDYOYA BAŞLA!';
+        nextBtn.style.background = '#53FC18';
+        nextBtn.style.boxShadow = '0 0 25px rgba(83, 252, 24, 0.6)';
+      } else {
+        nextBtn.innerHTML = 'İleri ➔';
+        nextBtn.style.background = '#53FC18';
+        nextBtn.style.boxShadow = '0 0 15px rgba(83, 252, 24, 0.35)';
+      }
+    }
+
+    // Adımdaki Verileri Topla
+    function harvestStepData() {
+      if (currentWizStep === 1) {
+        activeWizSettings.selected_mic = document.getElementById('wiz-mic-select').value;
+      } else if (currentWizStep === 2) {
+        const g = document.getElementById('wiz-key-groq').value.trim();
+        const gem = document.getElementById('wiz-key-gemini').value.trim();
+        const el = document.getElementById('wiz-key-eleven').value.trim();
+        if (g) activeWizSettings.groq_api_key = g;
+        if (gem) activeWizSettings.gemini_api_key = gem;
+        if (el) activeWizSettings.elevenlabs_api_key = el;
+      }
+    }
+
+    // Ayarları Kalıcı Kaydet (Hem localStorage hem Backend JSON)
+    async function finalizeSetup() {
+      harvestStepData();
+      activeWizSettings.setup_completed = true;
+
+      // 1. LocalStorage
+      localStorage.setItem('codum_setup_completed', 'true');
+      localStorage.setItem('codum_user_settings', JSON.stringify(activeWizSettings));
+
+      // 2. Backend API POST
+      try {
+        const res = await fetch('/api/user-settings', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(activeWizSettings)
+        });
+        const data = await res.json();
+        console.log('Kalıcı ayar kaydedildi:', data);
+      } catch (e) {
+        console.warn('Backend ayar kayıt hatası:', e);
+      }
+
+      // 3. Stüdyo Arayüzünü Güncelle
+      applySettingsToDashboard(activeWizSettings);
+
+      // 4. Modal Kapat ve Bildirim Ver
+      document.getElementById('setup-wizard-modal').style.display = 'none';
+      if (wizVuInterval) clearInterval(wizVuInterval);
+      if (wizMicStream) wizMicStream.getTracks().forEach(t => t.stop());
+
+      // Üst bardaki durumu güncelle
+      const badgeText = document.getElementById('wizard-badge-text');
+      if (badgeText) badgeText.innerText = '✅ Ayarlar Hazır';
+
+      alert('🎉 Tebrikler! Tüm ayarlarınız başarıyla diske kaydedildi.\n\nBir sonraki açılışta doğrudan canlı yayın stüdyosu açılacaktır.');
+    }
+
+    function applySettingsToDashboard(s) {
+      if (s.target_language) {
+        const tSel = document.getElementById('target-lang-select');
+        if (tSel) tSel.value = s.target_language;
+      }
+      if (s.slang_mode) {
+        const sSel = document.getElementById('slang-mode-select');
+        if (sSel) sSel.value = s.slang_mode;
+      }
+      if (s.groq_api_key) {
+        const gInp = document.getElementById('input-key-groq');
+        if (gInp) gInp.value = s.groq_api_key;
+      }
+      if (s.gemini_api_key) {
+        const gmInp = document.getElementById('input-key-gemini');
+        if (gmInp) gmInp.value = s.gemini_api_key;
+      }
+      if (s.elevenlabs_api_key) {
+        const elInp = document.getElementById('input-key-elevenlabs');
+        if (elInp) elInp.value = s.elevenlabs_api_key;
+      }
+    }
+
+    // Başlangıç Kontrolü: Daha önce yapıldıysa açma, yapılmadıysa sihirbazı aç!
+    async function initWizardState() {
+      initCardSelectors();
+      populateWizMics();
+
+      // Mikrofon test butonu
+      document.getElementById('wiz-btn-test-mic').addEventListener('click', testWizMic);
+
+      // OBS Kopyalama butonu
+      document.getElementById('wiz-btn-copy-obs').addEventListener('click', () => {
+        const urlInput = document.getElementById('wiz-obs-url');
+        urlInput.select();
+        navigator.clipboard.writeText(urlInput.value);
+        alert('📋 OBS Overlay bağlantısı panoya kopyalandı:\n' + urlInput.value);
+      });
+
+      // İleri / Geri butonları
+      document.getElementById('wiz-btn-prev').addEventListener('click', () => {
+        if (currentWizStep > 1) goToStep(currentWizStep - 1);
+      });
+
+      document.getElementById('wiz-btn-next').addEventListener('click', () => {
+        harvestStepData();
+        if (currentWizStep < 5) {
+          goToStep(currentWizStep + 1);
+        } else {
+          finalizeSetup();
+        }
+      });
+
+      // Stepper node'lara tıklayarak doğrudan adıma gitme
+      document.querySelectorAll('.stepper-nav .step-node').forEach(node => {
+        node.addEventListener('click', () => {
+          const targetStep = parseInt(node.getAttribute('data-step'));
+          harvestStepData();
+          goToStep(targetStep);
+        });
+      });
+
+      // Üst bardaki "Kurulum Sihirbazı" Butonu
+      const reopenBtn = document.getElementById('btn-reopen-wizard');
+      if (reopenBtn) {
+        reopenBtn.addEventListener('click', () => {
+          document.getElementById('setup-wizard-modal').style.display = 'flex';
+          goToStep(1);
+        });
+      }
+
+      // Backend'den kayıtlı ayarları sorgula
+      let isCompleted = false;
+      try {
+        const resp = await fetch('/api/user-settings');
+        if (resp.ok) {
+          const saved = await resp.json();
+          if (saved && saved.setup_completed) {
+            isCompleted = true;
+            activeWizSettings = Object.assign(activeWizSettings, saved);
+            applySettingsToDashboard(saved);
+          }
+        }
+      } catch (e) {
+        console.warn('Ayar çekme hatası:', e);
+      }
+
+      if (!isCompleted && localStorage.getItem('codum_setup_completed') === 'true') {
+        isCompleted = true;
+        try {
+          const localSettings = JSON.parse(localStorage.getItem('codum_user_settings') || '{}');
+          activeWizSettings = Object.assign(activeWizSettings, localSettings);
+          applySettingsToDashboard(activeWizSettings);
+        } catch (e) {}
+      }
+
+      const modal = document.getElementById('setup-wizard-modal');
+      const badgeText = document.getElementById('wizard-badge-text');
+
+      if (isCompleted) {
+        // Zaten daha önce yapılmış! Stüdyoyu aç, sihirbazı gizle
+        modal.style.display = 'none';
+        if (badgeText) badgeText.innerText = '✅ Ayarlar Hazır';
+      } else {
+        // İLK KEZ AÇILIYOR: Sihirbazı ekrana getir!
+        modal.style.display = 'flex';
+        goToStep(1);
+      }
+    }
+
+    // Sayfa Yüklendiğinde Başlat
+    window.addEventListener('DOMContentLoaded', () => {
+      initWizardState();
     });
   </script>
 </body>

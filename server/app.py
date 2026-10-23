@@ -32,11 +32,71 @@ from core.audio_validator import AudioQualityValidator
 from core.health_monitor import HealthMonitor
 from core.license_guard import verify_license_integrity, print_startup_banner
 
+base_dir = os.path.dirname(os.path.dirname(__file__))
+
+def get_settings_file_path() -> str:
+    if getattr(sys, 'frozen', False):
+        target_dir = os.path.dirname(sys.executable)
+    else:
+        target_dir = base_dir
+    return os.path.join(target_dir, "user_settings.json")
+
+def load_persistent_settings() -> dict:
+    path = get_settings_file_path()
+    defaults = {
+        "setup_completed": False,
+        "selected_mic": "",
+        "target_language": "en",
+        "slang_mode": "gamer_hype",
+        "ai_engine": "auto",
+        "groq_api_key": os.getenv("GROQ_API_KEY", ""),
+        "gemini_api_key": os.getenv("GEMINI_API_KEY", ""),
+        "elevenlabs_api_key": os.getenv("ELEVENLABS_API_KEY", ""),
+        "cartesia_api_key": os.getenv("CARTESIA_API_KEY", ""),
+        "voice_clone_id": "default",
+        "obs_delay_ms": 0,
+        "vad_sensitivity": 0.015,
+        "silence_duration_ms": 400
+    }
+    if os.path.exists(path):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                saved = json.load(f)
+                defaults.update(saved)
+                for k in ["groq_api_key", "gemini_api_key", "elevenlabs_api_key", "cartesia_api_key"]:
+                    if defaults.get(k):
+                        env_key = k.upper()
+                        os.environ[env_key] = defaults[k]
+        except Exception as e:
+            print(f"[UYARI] Ayar dosyası okunamadı: {e}")
+    return defaults
+
+def save_persistent_settings(settings: dict) -> bool:
+    path = get_settings_file_path()
+    try:
+        current = load_persistent_settings()
+        current.update(settings)
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(current, f, ensure_ascii=False, indent=2)
+        for k in ["groq_api_key", "gemini_api_key", "elevenlabs_api_key", "cartesia_api_key"]:
+            if k in settings and settings[k]:
+                env_key = k.upper()
+                os.environ[env_key] = settings[k]
+        return True
+    except Exception as e:
+        print(f"[HATA] Ayar dosyası kaydedilemedi: {e}")
+        return False
+
 app = FastAPI(title="CODUM.TR STREAM Studio & Engine")
 
 @app.on_event("startup")
 async def startup_event():
     print_startup_banner()
+    settings = load_persistent_settings()
+    room = room_manager.get_or_create_room("streamer")
+    room.target_language = settings.get("target_language", "en")
+    room.slang_mode = settings.get("slang_mode", "gamer_hype")
+    room.ai_engine = settings.get("ai_engine", "auto")
 
 app.add_middleware(
     CORSMiddleware,
@@ -115,6 +175,29 @@ def update_settings(channel_id: str, settings: SettingsPayload):
     room.ai_engine = settings.ai_engine
     health_monitor.active_llm_provider = f"Seçili: {settings.ai_engine.upper()}"
     return {"status": "success", "message": "Ayarlar ve AI Motoru güncellendi"}
+
+@app.get("/api/user-settings")
+def api_get_user_settings():
+    """Tüm kaydedilmiş kullanıcı ayarlarını ve kurulum durumunu döndürür."""
+    settings = load_persistent_settings()
+    return settings
+
+@app.post("/api/user-settings")
+def api_save_user_settings(payload: dict):
+    """Kurulum sihirbazı veya stüdyo panelinden gelen ayarları kalıcı olarak diske kaydeder."""
+    success = save_persistent_settings(payload)
+    room = room_manager.get_or_create_room("streamer")
+    if "target_language" in payload:
+        room.target_language = payload["target_language"]
+    if "slang_mode" in payload:
+        room.slang_mode = payload["slang_mode"]
+    if "ai_engine" in payload:
+        room.ai_engine = payload["ai_engine"]
+    return {
+        "status": "success" if success else "error",
+        "message": "Ayarlar kalıcı olarak kaydedildi. Sonraki açılışlarda otomatik yüklenecektir.",
+        "settings": load_persistent_settings()
+    }
 
 @app.get("/api/metrics/{channel_id}")
 def get_metrics(channel_id: str):

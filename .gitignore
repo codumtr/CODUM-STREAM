@@ -18,6 +18,7 @@ codum_stream_twitter_banner.jpg
 # Ortam Değişkenleri & Özel API Anahtarları (ASLA PAYLAŞILMAZ)
 .env
 .env.local
+user_settings.json
 
 # Ses Dosyaları & Geçici Kayıtlar
 *.wav
