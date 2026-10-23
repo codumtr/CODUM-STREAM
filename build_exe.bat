@@ -9,16 +9,16 @@ echo   (Discord / OBS gibi bagimsiz masaustu penceresi)
 echo ========================================================
 echo.
 
-where python >nul 2>nul
-if %errorlevel% equ 0 (
-    set "PY_CMD=python"
+if exist "%LOCALAPPDATA%\Python\bin\python.exe" (
+    set "PY_CMD=%LOCALAPPDATA%\Python\bin\python.exe"
 ) else (
     where py >nul 2>nul
     if %errorlevel% equ 0 (
         set "PY_CMD=py"
     ) else (
-        if exist "%LOCALAPPDATA%\Python\bin\python.exe" (
-            set "PY_CMD=%LOCALAPPDATA%\Python\bin\python.exe"
+        where python >nul 2>nul
+        if %errorlevel% equ 0 (
+            set "PY_CMD=python"
         ) else (
             echo [HATA] Python bulunamadi! Lutfen Python yukleyin veya PATH'e ekleyin.
             pause
@@ -53,10 +53,17 @@ echo [2/3] CODUM_StreamDub.exe derleniyor (Native Desktop App)...
     run_app.py
 
 echo.
+echo [3/3] Ek belgeler ve yonetim dosyalari paket klasorune kopyalaniyor...
+copy /Y "CODUM_BASLAT.bat" "dist\CODUM_StreamDub\" > nul
+copy /Y "KULLANIM_KILAVUZU.txt" "dist\CODUM_StreamDub\" > nul
+copy /Y "LICENSE.md" "dist\CODUM_StreamDub\" > nul
+copy /Y ".env.example" "dist\CODUM_StreamDub\" > nul
+
+echo.
 echo ========================================================
 echo   [BASARILI] Masaustu Program Paketi Olusturuldu!
 echo   Klasor: dist\CODUM_StreamDub\
-echo   CODUM_StreamDub.exe cift tiklandiginda bagimsiz masaustu
-echo   penceresi olarak acilir!
+echo   - CODUM_BASLAT.bat (Cift tikla yonetim paneli)
+echo   - CODUM_StreamDub.exe (Masaustu pencere programi)
+echo   - KULLANIM_KILAVUZU.txt (Detayli adim adim rehber)
 echo ========================================================
-pause

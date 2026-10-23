@@ -97,15 +97,17 @@ CODUM.TR STREAM, Türk yayıncıların yayınlarını dünyaya açabilmesi için
 
 ## 🚀 Hızlı Kurulum (Quickstart)
 
-### Yöntem 1: Bağımsız `.EXE` (Önerilen - Python Gerekmez!)
-1. Sağ taraftaki **[Releases](https://github.com)** bölümünden `CODUM_StreamDub_v1.0.0_Windows.zip` dosyasını indirin ve bir klasöre çıkartın.
-2. `CODUM_StreamDub.exe` dosyasına çift tıklayın.
-3. Tarayıcınızda kontrol merkezi (`http://127.0.0.1:8765/dashboard`) otomatik olarak açılır!
+### Yöntem 1: Bağımsız Masaüstü Programı (Önerilen - Python Gerekmez!)
+1. Sağ taraftaki **[Releases (v1.0.0-PRO)](https://github.com/codumtr/CODUM-STREAM/releases/tag/v1.0.0-PRO)** bölümünden `CODUM_StreamDub_v1.0.0_Windows.zip` dosyasını indirin.
+2. Arşivi bir klasöre çıkartın (**"Tümünü Ayıkla" / "Extract All"** deyin).
+3. Klasör içindeki **`CODUM_BASLAT.bat`** veya **`CODUM_StreamDub.exe`** dosyasına çift tıklayın.
+4. Discord / OBS tarzında bağımsız, karanlık temalı **Masaüstü Yönetim Penceresi** anında açılacaktır!
+5. Klasördeki **`KULLANIM_KILAVUZU.txt`** dosyasında OBS, mikrofon ve ses klonlama ayarları adım adım anlatılmaktadır.
 
 ### Yöntem 2: Kaynak Koddan Çalıştırma (Geliştiriciler İçin)
 ```bash
 # 1. Projeyi klonlayın
-git clone https://github.com/KULLANICI_ADINIZ/CODUM-STREAM.git
+git clone https://github.com/codumtr/CODUM-STREAM.git
 cd CODUM-STREAM
 
 # 2. Bağımlılıkları yükleyin

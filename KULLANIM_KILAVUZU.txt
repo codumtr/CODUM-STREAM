@@ -1,0 +1,89 @@
+================================================================================
+CODUM.TR STREAM PRO STUDIO (v1.0.0-PRO) - KULLANIM VE KURULUM KILAVUZU
+Tescilli Freeware - Tum Haklari CODUM.TR STREAM'e Aittir.
+GitHub: https://github.com/codumtr/CODUM-STREAM
+================================================================================
+
+Tebrikler! Canlı yayınlarınızda yapay zeka ile anlık Türkçe -> İngilizce (ve 10+ dil)
+dublaj, ses klonlama ve canlı altyazı sağlayan CODUM.TR STREAM Studio'yu indirdiniz.
+
+Bu kılavuz, programı ilk kez açan bir yayıncının 2 dakika içinde canlı yayına
+başlayabilmesi için hazırlanmıştır.
+
+--------------------------------------------------------------------------------
+1. ADIM: İLK ÇALIŞTIRMA VE ARAYÜZ (PANEL)
+--------------------------------------------------------------------------------
+1) İndirdiğiniz zip arşivini klasöre çıkartın (Zip içinden doğrudan çalıştırmayın,
+   mutlaka "Tümünü Ayıkla" veya "Extract All" deyin).
+2) Klasörün içindeki "CODUM_BASLAT.bat" dosyasına veya doğrudan "CODUM_StreamDub.exe"
+   dosyasına çift tıklayın.
+3) Karşınıza Discord / OBS gibi bağımsız, karanlık temalı modern stüdyo
+   yönetim penceresi gelecektir.
+   * Tarayıcıda kullanmak isterseniz herhangi bir tarayıcıdan şu adrese girebilirsiniz:
+     http://127.0.0.1:8765/dashboard
+
+--------------------------------------------------------------------------------
+2. ADIM: ÜCRETSİZ API ANAHTARLARINIZI GİRME (BYOK - Bring Your Own Key)
+--------------------------------------------------------------------------------
+CODUM.TR STREAM, hiçbir yayıncının verisini sunucuda tutmaz ve merkezi faturalandırma
+yapmaz. Kendi ücretsiz anahtarlarınızı doğrudan panelden girersiniz:
+
+1) Paneldeki "⚙️ Ayarlar" (Settings) sekmesine gelin.
+2) Tercih ettiğiniz motorların anahtarlarını yapıştırın:
+   - Groq API Key: (https://console.groq.com/keys adresinden 10 saniyede ücretsiz alınır.
+     Ultra hızlı ~650ms Whisper STT ve Llama çevirisi için önerilir).
+   - Gemini API Key: (https://aistudio.google.com/ adresinden ücretsiz alınır.
+     Yedek veya çok dilli çeviri için).
+   - ElevenLabs API Key: (https://elevenlabs.io/ adresinden ses klonlama dublajı için).
+3) "Ayarları Kaydet" butonuna basın.
+
+--------------------------------------------------------------------------------
+3. ADIM: 30 SANİYEDE SES KLONLAMA (VOICE DNA)
+--------------------------------------------------------------------------------
+Yayıncının kendi ses tonunu ve tınısını klonlayıp İngilizce olarak konuşması için:
+1) Paneldeki "Ses Klonlama / Voice DNA" sekmesine geçin.
+2) "Örnek Ses Kaydet" butonuna basarak mikrofona 20-30 saniye boyunca doğal
+   konuşma tonunuzla konuşun veya elinizdeki bir .wav/.mp3 dosyasını yükleyin.
+3) "Ses Profilini Oluştur" butonuna tıklayın. Artık yabancı dildeki dublajınız
+   sizin kendi ses renginizle çıkacaktır!
+
+--------------------------------------------------------------------------------
+4. ADIM: OBS STUDIO VE CANLI YAYIN ENTEGRASYONU
+--------------------------------------------------------------------------------
+A) CANLI ALTYAZI EKRANI (OVERLAY):
+   1) OBS Studio'yu açın.
+   2) Kaynaklar (Sources) paneline "+" basıp "Tarayıcı" (Browser Source) ekleyin.
+   3) URL kısmına şunu yapıştırın:
+      http://127.0.0.1:8765/overlay
+   4) Genişlik: 1920, Yükseklik: 1080 yapın.
+   5) Tamam deyin. Ekranda şeffaf, neon altyazı ve dublaj paneli belirecektir.
+
+B) CANLI SES AKIŞI (SANAL KABLO İLE):
+   Klonlanan yapay zeka dublaj sesini yayına ayrı bir ses kanalı olarak vermek için:
+   - Ücretsiz "VB-Audio Virtual Cable" yazılımını kurun.
+   - Panelden Çıkış Aygıtı olarak "CABLE Input" seçin.
+   - OBS'de yeni bir "Ses Giriş Yakalayıcısı" ekleyip "CABLE Output" seçin.
+   Böylece kendi sesiniz ile çevrilen dublaj sesi yayında mükemmel dengelenir!
+
+--------------------------------------------------------------------------------
+5. ADIM: KICK / TWITCH CHAT BOTU (OPSİYONEL)
+--------------------------------------------------------------------------------
+- Panelde sol menüdeki "Kick Bot" alanına Kick kanal adınızı yazın.
+- Yabancı izleyicilerinizin sohbette yazdığı İngilizce mesajlar yayıncının kulaklığına
+  anlık Türkçe fısıltı olarak gelir; yayıncının Türkçe cevabı da anında sohbete
+  İngilizce olarak yazılır!
+
+--------------------------------------------------------------------------------
+SORUN GİDERME & YARDIM:
+--------------------------------------------------------------------------------
+S: "Port 8765 kullanımda" hatası alırsam ne yapmalıyım?
+C: Sistem otomatik olarak sonraki boş portları (8766, 8767...) dener.
+
+S: Panel açılmıyor, hata veriyor:
+C: Klasördeki "codum_studio.log" dosyasını açıp hataya bakabilir, veya
+   "CODUM_BASLAT.bat" ile 2. seçeneği seçerek tarayıcınızda açabilirsiniz.
+
+Destek ve Güncellemeler:
+Resmi GitHub Deposu: https://github.com/codumtr/CODUM-STREAM
+İletişim / Marka: CODUM.TR STREAM
+================================================================================
